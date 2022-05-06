@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style media="screen">
+      @supports (content-visibility: hidden) {
+        body:not(.settings_loaded) .page_layout {
+          content-visibility: hidden;
+        }
+      }
+      @supports not (content-visibility: hidden) {
+        body:not(.settings_loaded) .page_layout {
+          visibility: hidden;
+        }
+      }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="../../static/css/loader.css">
+
+</head>
+<body data-multi-lang="false">
+<div class="preloader">
+    <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<noscript>
+    <div class="njs-alert-overlay">
+        <div class="njs-alert-wrapper">
+            <div class="njs-alert">
+                <p>Включите в вашем браузере JavaScript!</p>
+            </div>
+        </div>
+    </div>
+</noscript>
+
+<div class="page_layout page_layout-clear ">
+    {% include 'include/header.html' %}
+
+    {% block content %}
+
+    {% endblock content %}
+
+    {% include 'include/footer.html' %}
+
+</div>
+</body>
+
+
+<script src='../../static/js/my-layout.js'></script>
+
+<link href='../../static/css/core-css.css' rel='stylesheet' type='text/css'/>
+<script src='../../static/js/jquery-3.5.1.min.js'></script>
+<script src='../../static/js/splide.min.js'></script>
+<link href='../../static/css/splide.min.css'
+      rel='stylesheet' type='text/css'/>
+<script src='../../static/js/js.cookie.min.js'></script>
+<script src='../../static/js/microAlert.js'></script>
+<link href='../../static/css/microAlert.css'
+      rel='stylesheet' type='text/css'/>
+<script src='../../static/js/jquery.cut-list.js'></script>
+<link href='../../static/css/jquery.cut-list.css'
+      rel='stylesheet' type='text/css'/>
+<script src='../../static/js/lazyload.min.js'></script>
+
+
+<link rel="stylesheet" type="text/css" href="../../static/css/style-widget.css">
+<script src="../../static/js/script.js"></script>
+
+
+<link rel="preload"
+      as="style"
+      href="../../static/css/style.css"
+/>
+
+<link rel="stylesheet"
+      href="../../static/css/style.css"
+      media="print"
+      onload="this.media='all'"/>
+
+
+<link href="../../static/css/theme.css" rel="stylesheet" type="text/css"
+      onload="document.body.classList.add('settings_loaded');"/>
+
+
+<script src="../../static/js/theme.js" charset="utf-8"></script>
+
+
+</html>
