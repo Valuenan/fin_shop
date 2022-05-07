@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 class Images(models.Model):
     title = models.CharField('Название', max_length=150)
     url = models.SlugField(max_length=150, unique=True)
+    image = models.ImageField("Изображение", upload_to="products/")
 
     def __str__(self):
         return self.title
@@ -13,6 +14,19 @@ class Images(models.Model):
         db_table = "images"
         verbose_name = _("Изображение")
         verbose_name_plural = _("Изображения")
+
+
+class BaseUnits(models.Model):
+    name = models.CharField('Название', max_length=5)
+    value = models.PositiveIntegerField('Базовая единица', default=0)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "base_units"
+        verbose_name = _("Единица измерения")
+        verbose_name_plural = _("Единицы измерения")
 
 
 class Groups(models.Model):
@@ -29,18 +43,6 @@ class Groups(models.Model):
         verbose_name_plural = _("Группы")
 
 
-class ViewNomenclature(models.Model):
-    name = models.CharField('Название', max_length=150)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = "view_nomenclature"
-        verbose_name = _("Вид номенклатуры")
-        verbose_name_plural = _("Виды номенклатуры")
-
-
 class TypeNomenclature(models.Model):
     name = models.CharField('Название', max_length=150)
 
@@ -53,18 +55,17 @@ class TypeNomenclature(models.Model):
         verbose_name_plural = _("Типы номенклатуры")
 
 
-class Attributes(models.Model):
-    view_nomenclature = models.ForeignKey(ViewNomenclature, on_delete=models.CASCADE, related_name='view_nomenclature')
-    type_nomenclature = models.ForeignKey(TypeNomenclature, on_delete=models.CASCADE, related_name='type_nomenclature')
+class ViewNomenclature(models.Model):
     name = models.CharField('Название', max_length=150)
+    type = models.ForeignKey(TypeNomenclature, on_delete=models.CASCADE, related_name='type')
 
     def __str__(self):
         return self.name
 
     class Meta:
-        db_table = "attributes"
-        verbose_name = _("Атрибут")
-        verbose_name_plural = _("Атрибуты")
+        db_table = "view_nomenclature"
+        verbose_name = _("Вид номенклатуры")
+        verbose_name_plural = _("Виды номенклатуры")
 
 
 class Taxes(models.Model):
@@ -85,11 +86,11 @@ class Products(models.Model):
     vendor_code = models.CharField('Артикул', max_length=20, null=True)
     name = models.CharField('Название', max_length=150)
     description = models.TextField('Описание', null=True)
-    image = models.ForeignKey(Images, on_delete=models.DO_NOTHING, related_name='image', null=True)
-    base_unit = models.PositiveIntegerField('Базовая единица', default=0)
+    product_image = models.ForeignKey(Images, on_delete=models.DO_NOTHING, related_name='product_image')
+    base_unit = models.ForeignKey(BaseUnits, on_delete=models.CASCADE, related_name='unit')
     group = models.ForeignKey(Groups, on_delete=models.CASCADE, related_name='group', null=True)
     weight = models.PositiveIntegerField('Вес', default=0)
-    value_attributes = models.ForeignKey(Attributes, on_delete=models.CASCADE, related_name='attributes')
+    view_nomenclature = models.ForeignKey(ViewNomenclature, on_delete=models.CASCADE, related_name='attributes')
     tax = models.ForeignKey(Taxes, on_delete=models.CASCADE, related_name='product_tax')
 
     def __str__(self):
@@ -113,14 +114,28 @@ class PriceTypes(models.Model):
         verbose_name_plural = _("Типы цены")
 
 
+class Currency(models.Model):
+    name = models.CharField('Название', max_length=20)
+    code = models.SmallIntegerField('Код валюты')
+    simbol = models.CharField('Символ валюты', max_length=5)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "currency"
+        verbose_name = _("Валюта")
+        verbose_name_plural = _("Валюты")
+
+
 class Prices(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='price')
     price_type = models.ForeignKey(PriceTypes, on_delete=models.CASCADE, related_name='type')
     price = models.PositiveIntegerField('Цена', default=0)
-    currency = models.CharField('Валюта', max_length=10)
+    currency = models.ForeignKey(Currency, on_delete=models.DO_NOTHING, related_name='currency')
 
     def __str__(self):
-        return self.product
+        return self.product.name
 
     class Meta:
         db_table = "prices"
@@ -142,7 +157,6 @@ class Organisations(models.Model):
 
 class Stocks(models.Model):
     name = models.CharField('Название', max_length=150)
-    quantity = models.PositiveIntegerField('Количество', default=0)
     organisation = models.ForeignKey(Organisations, on_delete=models.CASCADE, related_name='organisation')
 
     def __str__(self):
@@ -156,11 +170,11 @@ class Stocks(models.Model):
 
 class Rests(models.Model):
     product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='rests')
-    quantity = models.Count(1)
     stock = models.ForeignKey(Stocks, on_delete=models.CASCADE, related_name='stock')
+    quantity = models.PositiveIntegerField('Количество', default=0)
 
     def __str__(self):
-        return self.product
+        return self.product.name
 
     class Meta:
         db_table = "rests"

@@ -1,36 +1,36 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import Images, Groups, ViewNomenclature, TypeNomenclature, Attributes, Taxes, Products, PriceTypes, \
-    Organisations, Stocks
+from .models import Images, Groups, ViewNomenclature, TypeNomenclature, Taxes, Products, PriceTypes, \
+    Organisations, Stocks, BaseUnits, Currency
 
 
 @register(Images)
 class CategoryTranslationOptions(TranslationOptions):
-    field = 'title'
+    fields = ('title',)
+
+
+@register(BaseUnits)
+class CategoryTranslationOptions(TranslationOptions):
+    fields = ('name',)
 
 
 @register(Groups)
 class CategoryTranslationOptions(TranslationOptions):
-    field = 'name'
+    fields = ('name',)
 
 
 @register(ViewNomenclature)
 class CategoryTranslationOptions(TranslationOptions):
-    field = 'name'
+    fields = ('name',)
 
 
 @register(TypeNomenclature)
 class CategoryTranslationOptions(TranslationOptions):
-    field = 'name'
-
-
-@register(Attributes)
-class CategoryTranslationOptions(TranslationOptions):
-    field = 'name'
+    fields = ('name',)
 
 
 @register(Taxes)
 class CategoryTranslationOptions(TranslationOptions):
-    field = 'name'
+    fields = ('name',)
 
 
 @register(Products)
@@ -38,16 +38,21 @@ class CategoryTranslationOptions(TranslationOptions):
     fields = ('name', 'description')
 
 
-@register(PriceTypes)
-class CategoryTranslationOptions(TranslationOptions):
-    field = 'name'
-
-
 @register(Organisations)
 class CategoryTranslationOptions(TranslationOptions):
-    field = 'name'
+    fields = ('name',)
 
 
 @register(Stocks)
 class CategoryTranslationOptions(TranslationOptions):
-    field = 'name'
+    fields = ('name',)
+
+
+@register(PriceTypes)
+class CategoryTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
+
+@register(Currency)
+class CategoryTranslationOptions(TranslationOptions):
+    fields = ('name',)
