@@ -4,8 +4,6 @@
     <link rel="stylesheet" type="text/css" href="/static/css/header.css">
     <div class="layout widget-type_system_widget_v4_header_1">
         <div class="layout__content">
-
-
             <div class="header">
                 <div class="header__mobile-head">
                     <div class="header__mobile-head-content">
@@ -38,8 +36,7 @@
 
                                     <li class="header__menu-item" data-navigation-item data-menu-item-id="10683226">
                                         <div class="header__menu-controls">
-                                            <a href="/collection/all" class="header__menu-link"
-                                               data-navigation-link="/collection/all">
+                                            <a href="/catalog/" class="header__menu-link">
                                                 Каталог
                                             </a>
                                         </div>
@@ -137,12 +134,6 @@
                     <div class="header-part-main">
                         <div class="header-part-main__inner">
                             <div class="header__area-logo">
-
-
-
-
-
-
                                 <span class="header__logo">
                                   <img src="/static/img/markom_logo.svg"
                                        alt="Интернет-магазин Марком" title="Интернет-магазин Марком"/>
@@ -202,7 +193,7 @@
                                 </a>
                             </div>
 
-<!--Пункты меню-->
+                            <!--Пункты меню-->
                             <div class="header__collections">
                                 <div class="header__collections-content">
                                     <div class="header__collections-head">Каталог</div>
@@ -211,67 +202,49 @@
                                     <ul class="grid-list header__collections-menu" data-navigation
                                         data-subcollections-items-limit=10>
 
-
-                                        <li class="header__collections-item is-level-1" data-navigation-item>
-
-
-                                            <a href="/collection/kategoriya-2"
-                                               class="img-ratio img-ratio_cover header__collections-photo">
-                                                <div class="img-ratio__inner">
-
-                                                    <img src="/static/img/large_Авокадо.webp" alt="Авокадо, 1 шт">
-
-                                                </div>
-                                            </a>
+                                        {% for main_group, groups in groups_catalog.items %}
+                                            <li class="header__collections-item is-level-1" data-navigation-item>
 
 
-                                            <div class="header__collections-controls">
-                                                <a href="/collection/kategoriya-2" class="header__collections-link"
-                                                   data-navigation-link="/collection/kategoriya-2">
-                                                    Овощи, фрукты, ягоды
+                                                <a href="/collection/kategoriya-2"
+                                                   class="img-ratio img-ratio_cover header__collections-photo">
+                                                    <div class="img-ratio__inner">
+
+                                                        <img src="{{ main_group.image.url }}" alt="{{ main_group.name }}">
+
+                                                    </div>
                                                 </a>
 
 
-                                                <button class="header__collections-show-submenu-btn js-show-mobile-submenu"
-                                                        type="button">
-                                                    <span class="icon icon-angle-down"></span>
-                                                </button>
+                                                <div class="header__collections-controls">
+                                                    <a href="/catalog/?filter={{ main_group }}"
+                                                       class="header__collections-link">
+                                                        {{ main_group }}
+                                                    </a>
 
-                                            </div>
+
+                                                    <button class="header__collections-show-submenu-btn js-show-mobile-submenu"
+                                                            type="button">
+                                                        <span class="icon icon-angle-down"></span>
+                                                    </button>
+
+                                                </div>
 
 
-                                            <ul class="header__collections-submenu" data-navigation-submenu>
-
-                                                <li class="header__collections-item " data-navigation-item>
-                                                    <div class="header__collections-controls">
-                                                        <a href="/collection/frukty"
-                                                           class="header__collections-link"
-                                                           data-navigation-link="/collection/frukty">
-                                                            Фрукты и ягоды
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li class="header__collections-item " data-navigation-item>
-                                                    <div class="header__collections-controls">
-                                                        <a href="/collection/ovoschi"
-                                                           class="header__collections-link"
-                                                           data-navigation-link="/collection/ovoschi">
-                                                            Овощи
-                                                        </a>
-                                                    </div>
-                                                </li>
-
-                                                <li class="header__collections-item " data-navigation-item>
-                                                    <div class="header__collections-controls">
-                                                        <a href="/collection/zelen" class="header__collections-link"
-                                                           data-navigation-link="/collection/zelen">
-                                                            Зелень
-                                                        </a>
-                                                    </div>
-                                                </li>
+                                                    <ul class="header__collections-submenu">
+                                                        {% for group in groups %}
+                                                        <li class="header__collections-item ">
+                                                            <div class="header__collections-controls">
+                                                                <a href="/catalog/?filter={{ group }}"
+                                                                   class="header__collections-link">
+                                                                    {{ group }}
+                                                                </a>
+                                                            </div>
+                                                        </li>
+                                                    {% endfor %}
 
                                             </ul>
+
                                             <div class="header__collections-show-more ">
                                               <span class="button-link header__collections-show-more-link js-show-more-subcollections">
                                                 <span class="header__collections-show-more-text-show">Показать все</span>
@@ -280,6 +253,7 @@
                                               </span>
                                             </div>
                                         </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
@@ -298,7 +272,8 @@
                     <div class="header-mobile-panel__logo">
 
                         <span class="header__logo">
-                          <img src="/static/img/markom_logo.svg" alt="Интернет-магазин Марком" title="Интернет-магазин Марком"/>
+                          <img src="/static/img/markom_logo.svg" alt="Интернет-магазин Марком"
+                               title="Интернет-магазин Марком"/>
                         </span>
 
 

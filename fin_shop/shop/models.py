@@ -20,6 +20,7 @@ class Groups(models.Model):
     flag_removal = models.BooleanField('Пометка удаления', default=False)
     name = models.CharField('Название', max_length=150)
     parent = models.ForeignKey('self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True)
+    image = models.ImageField(verbose_name='Изображение', upload_to="groups/", blank=True, null=True)
 
     def __str__(self):
         return self.name

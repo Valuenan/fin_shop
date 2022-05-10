@@ -12,13 +12,13 @@
                     <li class="breadcrumb-item home">
                         <a class="breadcrumb-link" title="Главная" href="/">Главная</a>
                     </li>
-                    <li class="breadcrumb-item" data-breadcrumbs="2">
-                        <a class="breadcrumb-link" title="Овощи, фрукты, ягоды" href="/collection/kategoriya-2">Овощи,
-                            фрукты, ягоды</a>
-                    </li>
-                    <li class="breadcrumb-item" data-breadcrumbs="3">
-                        <a class="breadcrumb-link" title="Фрукты и ягоды" href="/collection/frukty">Фрукты и ягоды</a>
-                    </li>
+                    {% for crumb in breadcrumbs %}
+                        <li class="breadcrumb-item">
+                            <a class="breadcrumb-link" title="{{ crumb.name }}" href="/catalog/?filter={{ crumb }}">
+                                {{ crumb.name }}</a>
+                        </li>
+                    {% endfor %}
+
                 </ul>
             </div>
         </div>
@@ -95,9 +95,7 @@
                              data-trigger-click="reviews-open:insales:site">
                             <div class="product__rating-list">
 
-
                                 <span class="product__rating-star icon-star "></span>
-
 
                             </div>
                         </div>
