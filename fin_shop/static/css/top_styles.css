@@ -1,0 +1,74 @@
+.widget-type_system_widget_v4_promo_slider_2 {
+--slide-overlay-color:#000000; --slide-overlay-color-is-dark:true; --slide-overlay-color-minor-shade:#1a1a1a; --slide-overlay-color-minor-shade-is-dark:true; --slide-overlay-color-major-shade:#333333; --slide-overlay-color-major-shade-is-dark:true; --slide-overlay-color-half-shade:#808080; --slide-overlay-color-half-shade-is-dark:true; --slide-overlay-opacity:0.3; --img-ratio:3; --img-border-radius:0px; --autoplay:false; --autoplay-delay:5; --hide-arrows:false; --layout-wide-bg:false; --layout-pt:0vw; --layout-pb:0vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;
+}
+
+.widget-type_system_widget_v4_special_products_1 {
+--count_special_products:12;
+--slide-width:220px;
+--slide-gap:15rem;
+--product-border-radius:10px;
+--img-ratio:1;
+--img-fit:contain;
+--product-desc-limit:10;
+--hide-description:true;
+--sticker-font-size:1.1rem;
+--hide-variants:false;
+--hide-variants-title:true;
+--hide-sku:true;
+--slide-width-mobile:150px;
+--display-property-color:text;
+--layout-wide-bg:false;
+--layout-pt:2vw;
+--layout-pb:2vw;
+--layout-content-max-width:1408px;
+--layout-wide-content:false;
+--layout-edge:false;
+--hide-desktop:false;
+--hide-mobile:false;
+}
+
+.widget-type_system_widget_v4_banner_list_1 {
+--img-ratio:2; --banner-border-radius:4px; --zoom-on-hover:false; --grid-list-row-gap:1.5rem; --grid-list-column-gap:1.5rem; --layout-wide-bg:false; --layout-pt:1vw; --layout-pb:1vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;
+}
+
+.widget-type_system_widget_v4_shop-reviews_1 {
+--rating-color:#ff4100; --rating-color-is-dark:true; --rating-color-minor-shade:#ff531a; --rating-color-minor-shade-is-dark:true; --rating-color-major-shade:#ff6633; --rating-color-major-shade-is-dark:true; --rating-color-half-shade:#ff9f80; --rating-color-half-shade-is-light:true; --grid-list-min-width:330px; --grid-list-row-gap:2rem; --grid-list-column-gap:2rem; --border-radius:0px; --hide-rating:true; --hide-date:false; --layout-wide-bg:false; --layout-pt:2vw; --layout-pb:2vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;
+}
+
+.widget-type_system_widget_v4_feedback_1 {
+
+--align-title:center; --hide-use-agree:false; --layout-wide-bg:true; --layout-pt:2vw; --layout-pb:2vw; --layout-content-max-width:680px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;
+}
+
+.sticker-title {
+background-color: #009688;
+--bg: #009688;
+--color-text: var(--color-text-light);
+--color-text-minor-shade: var(--color-text-light-minor-shade);
+--color-text-major-shade: var(--color-text-light-major-shade);
+--color-text-half-shade: var(--color-text-light-half-shade);color: var(--color-text);
+}
+.sticker-new {
+background-color: #009688;
+--bg:#009688;
+--color-text: var(--color-text-light);
+--color-text-minor-shade: var(--color-text-light-minor-shade);
+--color-text-major-shade: var(--color-text-light-major-shade);
+--color-text-half-shade: var(--color-text-light-half-shade);color: var(--color-text);
+}
+.sticker-sale {
+background-color: #e44542;
+--bg:#e44542;
+--color-text: var(--color-text-light);
+--color-text-minor-shade: var(--color-text-light-minor-shade);
+--color-text-major-shade: var(--color-text-light-major-shade);
+--color-text-half-shade: var(--color-text-light-half-shade);color: var(--color-text);
+}
+
+.widget-type_system_widget_v4_breadcrumbs_1 {
+--delemeter:1; --align:start; --layout-wide-bg:false; --layout-pt:1vw; --layout-pb:0vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;
+}
+
+.widget-type_system_widget_v4_product_1 {
+--rating-color:#ff4100; --rating-color-is-dark:true; --rating-color-minor-shade:#ff531a; --rating-color-minor-shade-is-dark:true; --rating-color-major-shade:#ff6633; --rating-color-major-shade-is-dark:true; --rating-color-half-shade:#ff9f80; --rating-color-half-shade-is-light:true; --sale-bg:#FF4100; --sale-bg-is-dark:true; --sale-bg-minor-shade:#ff531a; --sale-bg-minor-shade-is-dark:true; --sale-bg-major-shade:#ff6633; --sale-bg-major-shade-is-dark:true; --sale-bg-half-shade:#ff9f80; --sale-bg-half-shade-is-light:true; --sticker-font-size:0.9rem; --display-property-color:text; --show-selected-variant-photos:false; --video-before-image:false; --img-ratio:1; --img-fit:contain; --product-hide-description:false; --product-hide-variants-title:true; --product-hide-sku:false; --product-hide-compare:false; --layout-wide-bg:false; --layout-pt:1vw; --layout-pb:2vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;
+}

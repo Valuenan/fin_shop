@@ -1,19 +1,6 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
-
-class Images(models.Model):
-    title = models.CharField('Название', max_length=150)
-    url = models.SlugField(max_length=150, unique=True)
-    image = models.ImageField("Изображение", upload_to="products/")
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        db_table = "images"
-        verbose_name = _("Изображение")
-        verbose_name_plural = _("Изображения")
 
 
 class BaseUnits(models.Model):
@@ -81,27 +68,6 @@ class Taxes(models.Model):
         verbose_name_plural = _("Виды налогов")
 
 
-class Products(models.Model):
-    flag_removal = models.BooleanField('Пометка удаления', default=False)
-    vendor_code = models.CharField('Артикул', max_length=20, null=True)
-    name = models.CharField('Название', max_length=150)
-    description = models.TextField('Описание', null=True)
-    product_image = models.ForeignKey(Images, on_delete=models.DO_NOTHING, related_name='product_image')
-    base_unit = models.ForeignKey(BaseUnits, on_delete=models.CASCADE, related_name='unit')
-    group = models.ForeignKey(Groups, on_delete=models.CASCADE, related_name='group', null=True)
-    weight = models.PositiveIntegerField('Вес', default=0)
-    view_nomenclature = models.ForeignKey(ViewNomenclature, on_delete=models.CASCADE, related_name='attributes')
-    tax = models.ForeignKey(Taxes, on_delete=models.CASCADE, related_name='product_tax')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = "products"
-        verbose_name = _("Товар")
-        verbose_name_plural = _("Товары")
-
-
 class PriceTypes(models.Model):
     name = models.CharField('Название', max_length=150)
 
@@ -112,6 +78,32 @@ class PriceTypes(models.Model):
         db_table = "price_types"
         verbose_name = _("Тип цены")
         verbose_name_plural = _("Типы цены")
+
+
+class Products(models.Model):
+    flag_removal = models.BooleanField('Пометка удаления', default=False)
+    vendor_code = models.CharField('Артикул', max_length=20, null=True)
+    name = models.CharField('Название', max_length=150, unique=True)
+    description = models.TextField('Описание', null=True)
+    image = models.ImageField("Изображение", upload_to="products/")
+    base_unit = models.ForeignKey(BaseUnits, on_delete=models.CASCADE, related_name='unit')
+    group = models.ForeignKey(Groups, on_delete=models.CASCADE, related_name='group', null=True)
+    weight = models.PositiveIntegerField('Вес', default=0)
+    view_nomenclature = models.ForeignKey(ViewNomenclature, on_delete=models.CASCADE, related_name='attributes')
+    tax = models.ForeignKey(Taxes, on_delete=models.CASCADE, related_name='product_tax')
+    use_price_type = models.ForeignKey(PriceTypes, on_delete=models.DO_NOTHING, default=1)
+    quantity = models.IntegerField('Остаток на складах', default=0)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("movie_detail", kwargs={"pk": self.id})
+
+    class Meta:
+        db_table = "products"
+        verbose_name = _("Товар")
+        verbose_name_plural = _("Товары")
 
 
 class Currency(models.Model):
@@ -129,10 +121,10 @@ class Currency(models.Model):
 
 
 class Prices(models.Model):
-    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='price')
-    price_type = models.ForeignKey(PriceTypes, on_delete=models.CASCADE, related_name='type')
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    price_type = models.ForeignKey(PriceTypes, on_delete=models.CASCADE)
     price = models.PositiveIntegerField('Цена', default=0)
-    currency = models.ForeignKey(Currency, on_delete=models.DO_NOTHING, related_name='currency')
+    currency = models.ForeignKey(Currency, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.product.name
@@ -175,6 +167,12 @@ class Rests(models.Model):
 
     def __str__(self):
         return self.product.name
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        instance = Products.objects.get(id=self.product.id)
+        instance.quantity += self.quantity
+        instance.save()
 
     class Meta:
         db_table = "rests"

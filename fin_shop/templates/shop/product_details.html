@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% load verbose_names %}
+{% block content %}
+<main>
+
+    <div class="layout widget-type_system_widget_v4_breadcrumbs_1">
+        <div class="layout__content">
+
+
+            <div class="breadcrumb-wrapper delemeter_1">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item home">
+                        <a class="breadcrumb-link" title="Главная" href="/">Главная</a>
+                    </li>
+                    <li class="breadcrumb-item" data-breadcrumbs="2">
+                        <a class="breadcrumb-link" title="Овощи, фрукты, ягоды" href="/collection/kategoriya-2">Овощи,
+                            фрукты, ягоды</a>
+                    </li>
+                    <li class="breadcrumb-item" data-breadcrumbs="3">
+                        <a class="breadcrumb-link" title="Фрукты и ягоды" href="/collection/frukty">Фрукты и ягоды</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div
+            class="layout widget-type_system_widget_v4_product_1">
+        <div class="layout__content">
+
+            <form
+                    action="/cart_items"
+                    method="post"
+                    class="product   is-zero-count-shown     is-forbid-order-over-existing"
+            >
+                <div class="product__area-photo">
+
+                    <div class="product__gallery js-product-gallery">
+                        <div style="display" class="js-product-all-images ">
+
+                            <div class="splide__slide product__slide-tumbs js-product-gallery-tumbs-slide">
+                                <div class="img-ratio img-ratio_contain product__photo-tumb">
+                                    <div class="img-ratio__inner">
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="product__gallery-tumbs" style="--img-ratio: 1;">
+                            <div class="splide js-product-gallery-tumbs">
+                                <div class="splide__track">
+                                    <div class="splide__list"></div>
+                                </div>
+                                <div class="splide__arrows">
+                                    <button type="button" class="splide__arrow splide__arrow--prev">
+                                        <span class="splide__arrow-icon icon-angle-left"></span>
+                                    </button>
+                                    <button type="button" class="splide__arrow splide__arrow--next">
+                                        <span class="splide__arrow-icon icon-angle-right"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product__gallery-main">
+                            <div class="splide js-product-gallery-main">
+                                <div class="splide__track">
+                                    <div class="splide__list"></div>
+                                </div>
+                                <div class="splide__arrows">
+                                    <button type="button" class="splide__arrow splide__arrow--prev">
+                                        <span class="splide__arrow-icon icon-angle-left"></span>
+                                    </button>
+                                    <button type="button" class="splide__arrow splide__arrow--next">
+                                        <span class="splide__arrow-icon icon-angle-right"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="product__area-title">
+                    <h1 class="product__title heading">
+                        {{ product.name }}, {{product.base_unit }}
+                    </h1>
+                    <p>{% get_verbose_field_name product "vendor_code" %}: {{ product.vendor_code }}</p>
+                </div>
+                <div class="product__area-user-controls">
+                    <div class="product__user-controls">
+                        <div class="product__rating js-product-rating" data-rating=""
+                             data-trigger-click="reviews-open:insales:site">
+                            <div class="product__rating-list">
+
+
+                                <span class="product__rating-star icon-star "></span>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product__area-variants">
+
+                    <input type="hidden" name="variant_id" value="369891549"/>
+
+                </div>
+
+                <div class="product__area-buy">
+                    <div class="product__buy">
+                        <div class="product__price">
+
+                            {% for price in product.prices_set.all %}
+                            {% if product.use_price_type.id == 2 %}
+                            {% if price.price_type.id == 1 and price.price != 0 %}
+                            <span class="product__price-old">
+                    {{ price.price }} {{ price.currency.simbol }}
+                </span>
+                            {% else %}
+                            <div class="sticker sticker-sale">
+                                Акция
+                            </div>
+                            <span class="product__price-cur">
+                  {{ price.price }} {{ price.currency.simbol }}
+              </span>
+                            {% endif %}
+                            {% elif product.quantity == 0 %}
+                            <span class="product__price-cur">
+                              Нет в наличии
+                          </span>
+                            {% else %}
+                            <span class="product__price-cur">
+                    {{ price.price }} {{ price.currency.simbol }}</span>
+                            <span class="product__price-old" style="visibility: hidden">
+                            0
+                </span>
+                            {% endif %}
+                            {% endfor %}
+
+
+                            <span class="product__price-cur"></span>
+                            <span class="product__price-old"></span>
+
+                        </div>
+                        <div class="product__controls">
+
+                            <div class="product__buy-one-click">
+        <span class="button-link" data-quick-checkout="[data-product-id='217322474']">
+        Купить в 1 клик
+        </span>
+                            </div>
+
+                            <div class="product__buy-btn-area" id="product-detail-buy-area">
+                                <div class="product__buy-btn-area-inner">
+                                    <div class="add-cart-counter" data-add-cart-counter='{"step": "1"}'>
+                                        <button type="button" class="button add-cart-counter__btn"
+                                                data-add-cart-counter-btn>
+                                            <span class="add-cart-counter__btn-label">В корзину</span>
+                                            <span class="button__icon icon-cart"></span>
+                                        </button>
+                                        <div class="add-cart-counter__controls">
+                                            <button data-add-cart-counter-minus
+                                                    class="button add-cart-counter__controls-btn" type="button">-
+                                            </button>
+                                            <a href="/cart_items" class="button add-cart-counter__detail">
+                                                <span class="add-cart-counter__detail-text">В корзине <span
+                                                        data-add-cart-counter-count></span> кг</span>
+                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
+                                            </a>
+                                            <button data-add-cart-counter-plus
+                                                    class="button add-cart-counter__controls-btn" type="button">+
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button data-product-card-preorder class="button button_wide product__preorder-btn"
+                                            type="button">Предзаказ
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product__area-description">
+
+                    <div class="product__description static-text">
+
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+
+    <div
+            class="layout widget-type_system_widget_v4_product_info_1"
+            style="--bg:#fafafa; --bg-is-light:true; --bg-minor-shade:#fafafa; --bg-minor-shade-is-light:true; --bg-major-shade:#fafafa; --bg-major-shade-is-light:true; --bg-half-shade:#f7f7f7; --bg-half-shade-is-light:true; --layout-wide-bg:true; --layout-pt:2vw; --layout-pb:2vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
+    >
+        <div class="layout__content">
+            <div class="product-info">
+
+
+                <div class="product-properties" id="product-characteristics">
+                    <div class="label-properties">Характеристики</div>
+                    <div class="content-properties">
+                        <div class="properties-items">
+
+
+                            <div class="property">
+                                <div class="property-name">Страна</div>
+                                <div class="delimiter"></div>
+                                <div class="property-content">
+
+                                    Уругвай
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<div class="outside-widgets">
+    <div
+            class="layout widget-type_system_widget_v4_alerts"
+            style=""
+    >
+        <div class="layout__content">
+
+            <div
+                    class="micro-alerts"
+                    data-micro-alerts-settings='{
+
+
+  "success_feedback": "✓ Сообщение успешно отправлено",
+
+
+  "success_cart": "✓ Товар добавлен в корзину",
+
+
+  "add_item_compares": "✓ Товар добавлен в сравнение",
+
+
+  "remove_item_compares": "Товар удален из сравнения",
+
+
+  "add_item_favorites": "✓ Товар добавлен в избранное",
+
+
+  "remove_item_favorites": "Товар удален из избранного",
+
+
+  "overload_compares": "⚠ Достигнуто максимальное количество товаров для сравнения",
+
+
+  "overload_quantity": "⚠ Достигнуто максимальное количество единиц товара для заказа",
+
+
+  "success_preorder": "✓ Предзаказ успешно отправлен"
+
+}'>
+            </div>
+        </div>
+    </div>
+
+
+    <div
+            class="layout widget-type_system_widget_v4_notification_add_to_cart_1"
+            style="--layout-pt:2vw; --layout-pb:2vw; --layout-content-max-width:750px;"
+    >
+        <div class="layout__content">
+            <div class="notification">
+                <div class="notification__head">
+                    <div class="notification__title">Добавить в корзину</div>
+                    <button type="button" class="button button_size-m notification__hide-btn js-hide-notification">
+                        <span class="icon icon-times"></span>
+                    </button>
+                </div>
+                <div class="notification__content">
+                    <div class="notification-product">
+                        <div class="notification-product__photo"></div>
+                        <div class="notification-product__title"></div>
+                        <div class="notification-product__info">
+                            <div class="notification-product__price"></div>
+                            <div class="notification-product__count"></div>
+                        </div>
+                        <div class="notification-product__controls">
+                            <button type="button" class="button notification-product__close-btn js-hide-notification">
+                                Вернуться к покупкам
+                            </button>
+                            <a class="button notification-product__to-cart" href="/cart_items">Перейти в корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </html>
+    {% endblock content %}

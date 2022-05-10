@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
+{% load verbose_names %}
 {% block content %}
 <main>
     <div
-            class="layout widget-type_system_widget_v4_promo_slider_2"
-            style="--slide-overlay-color:#000000; --slide-overlay-color-is-dark:true; --slide-overlay-color-minor-shade:#1a1a1a; --slide-overlay-color-minor-shade-is-dark:true; --slide-overlay-color-major-shade:#333333; --slide-overlay-color-major-shade-is-dark:true; --slide-overlay-color-half-shade:#808080; --slide-overlay-color-half-shade-is-dark:true; --slide-overlay-opacity:0.3; --img-ratio:3; --img-border-radius:0px; --autoplay:false; --autoplay-delay:5; --hide-arrows:false; --layout-wide-bg:false; --layout-pt:0vw; --layout-pb:0vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
+            class="layout widget-type_system_widget_v4_promo_slider_2">
         <div class="layout__content">
             <div class="promo-slider">
                 <div class="splide js-promo-slider" data-autoplay="false" data-autoplay-delay="5">
@@ -75,9 +74,7 @@
 
     <!--Новое поступление-->
 
-    <div class="layout widget-type_system_widget_v4_special_products_1"
-         style="--count_special_products:12; --slide-width:220px; --slide-gap:15rem; --product-border-radius:10px; --img-ratio:1; --img-fit:contain; --product-desc-limit:10; --hide-description:true; --sticker-font-size:1.1rem; --hide-variants:false; --hide-variants-title:true; --hide-sku:true; --slide-width-mobile:150px; --display-property-color:text; --layout-wide-bg:false; --layout-pt:2vw; --layout-pb:2vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
+    <div class="layout widget-type_system_widget_v4_special_products_1">
         <div class="layout__content">
 
 
@@ -103,130 +100,124 @@
                     <div class="splide__track">
                         <div class="splide__list">
 
-
+                            {% for product in products %}
                             <div class="splide__slide">
                                 <form
                                         action="/cart_items"
                                         method="post"
-                                        data-product-id="217322474"
-                                        class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
+                                        class=
+                                            {% if product.quantity != 0 %}
+                                                "product-preview"
+                                            {% else %}
+                                                "product-preview is-zero-count-shown is-forbid-order-over-existing not-available"
+                                            {% endif %}
                                 >
                                     <div class="product-preview__content">
                                         <div class="product-preview__area-photo">
                                             <div class="product-preview__photo">
-
                                                 <div class="img-ratio img-ratio_cover">
                                                     <div class="img-ratio__inner">
+                                                        <a href="/product/{{ product.id }}">
 
-                                                        <a href="/product/avokado-1-sht">
-
-                                                            <img src="static/img/large_Авокадо.webp" alt="Авокадо, 1 шт">
+                                                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
 
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <div class="product-preview__available">
-                                                      <span data-product-card-available='{
-                                                        "availableText": "В наличии",
-                                                        "notAvailableText": "Нет в наличии"
-                                                        }'
-                                                      >
-
-                                                      В наличии
-
-                                                      </span>
-                                                </div>
-                                                <div class="stickers">
-
-                                                    <div class="sticker sticker-sale" data-product-card-sale-value
-                                                         data-sticker-title="sticker-sale"></div>
-                                                    <div class="sticker sticker-preorder"
-                                                         data-sticker-title="sticker-preorder">Предзаказ
+                                                {% if product.quantity == 0 %}
+                                                    <div class="product-preview__available">
+                                                        <span>Нет в наличии</span>
                                                     </div>
+                                                {% endif %}
+                                                <div class="stickers">
+                                                    {% if product.use_price_type.id == 2 %}
+                                                    <div class="sticker sticker-sale">
+                                                        Акция
+                                                    </div>
+                                                    {% endif %}
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-preview__area-sku">
-                                            <div class="product-preview__sku">
-
-                                    <span data-product-card-sku='{"skuLabel": "арт. "}'>арт.</span>
-
                                             </div>
                                         </div>
 
                                         <div class="product-preview__area-title">
                                             <div class="product-preview__title">
-                                                <a href="/product/avokado-1-sht">Авокадо, 1 шт</a>
+                                                <a href="/product/{{ product.id }}">{{ product.name }}, {{product.base_unit }}</a>
+
+                                                <p>{% get_verbose_field_name product "vendor_code" %}: {{ product.vendor_code }}</p>
+
                                             </div>
                                         </div>
 
                                         <div class="product-preview__area-description">
-                                            Описание
+                                            {{ product.description }}
                                         </div>
 
-                                        <div class="product-preview__area-variants">
 
-                                            <input type="hidden" name="variant_id" value="369891549"/>
+                                            <div class="product-preview__area-bottom">
+                                                <div class="product-preview__price">
+                                                    {% for price in product.prices_set.all %}
+                                                        {% if product.use_price_type.id == 2 %}
+                                                            {% if price.price_type.id == 1 and price.price != 0 %}
+                                                                <span class="product-preview__price-old" data-product-card-old-price>
+                                                                    {{ price.price }} {{ price.currency.simbol }}
+                                                                </span>
+                                                            {% else %}
+                                                                <span class="product-preview__price-cur">
+                                                                    {{ price.price }} {{ price.currency.simbol }}
+                                                                </span>
+                                                            {% endif %}
+                                                        {% else %}
 
-                                        </div>
-
-                                        <div class="product-preview__area-bottom">
-                                            <div class="product-preview__price">
-                                                    <span class="product-preview__price-old"
-                                                          data-product-card-old-price></span>
-                                                <span class="product-preview__price-cur"
-                                                      data-product-card-price-from-cart></span>
-                                            </div>
-
-                                            <div class="product-preview__price-cur product-preview__price-range">
-
-                                                59 ₽
-                                            </div>
-
-                                            <div class="product-preview__controls">
-                                                <div class="add-cart-counter" data-add-cart-counter>
-                                                    <button type="button" class="button add-cart-counter__btn"
-                                                            data-add-cart-counter-btn>
-                                                        <span class="add-cart-counter__btn-label">В корзину</span>
-                                                        <span class="button__icon icon-cart"></span>
-                                                    </button>
-                                                    <div class="add-cart-counter__controls">
-                                                        <button data-add-cart-counter-minus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">-
-                                                        </button>
-                                                        <a href="/cart_items"
-                                                           class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        кг
-                      </span>
-                                                            <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                                        </a>
-                                                        <button data-add-cart-counter-plus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">+
-                                                        </button>
-                                                    </div>
+                                                            <span class="product-preview__price-cur">
+                                                                    {{ price.price }} {{ price.currency.simbol }}</span>
+                                                            <span class="product-preview__price-old" style="visibility: hidden">
+                                                                            0
+                                                                </span>
+                                                        {% endif %}
+                                                    {% endfor %}
                                                 </div>
 
-                                                <button data-product-card-preorder
-                                                        class="button button_wide product-preview__preorder-btn"
-                                                        type="button">Предзаказ
-                                                </button>
+                                                    <div class="product-preview__controls">
+                                                        {% if product.quantity != 0 %}
+                                                            <div class="add-cart-counter">
+                                                                <button type="button" class="button add-cart-counter__btn">
+                                                                    <span class="add-cart-counter__btn-label">В корзину</span>
+                                                                    <span class="button__icon icon-cart"></span>
+                                                                </button>
 
-                                                <a href="/product/avokado-1-sht"
-                                                   class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                                <a href="/product/avokado-1-sht"
-                                                   class="button button_wide product-preview__detail-select-btn">Выбрать</a>
+<!--                                   TODO сделать добавление количества (нужно добавить корзину) -->
+<!--                                                            <div class="add-cart-counter__controls">-->
+<!--                                                                <button-->
+<!--                                                                        class="button add-cart-counter__controls-btn"-->
+<!--                                                                        type="button">- -->
+<!--                                                                </button>-->
+<!--                                                                <a href="/cart_items"-->
+<!--                                                                   class="button add-cart-counter__detail">-->
+<!--                                  <span class="add-cart-counter__detail-text">-->
+<!--                                    <span class="add-cart-counter__detail-label">В корзине</span>-->
+<!--                                    <span class="add-cart-counter__detail-count"></span>-->
+<!--                                    кг-->
+<!--                                  </span>-->
+<!--                                                                    <span class="add-cart-counter__detail-dop-text">Перейти</span>-->
+<!--                                                                </a>-->
+<!--                                                                <button-->
+<!--                                                                        class="button add-cart-counter__controls-btn"-->
+<!--                                                                        type="button">+-->
+<!--                                                                </button>-->
+<!--                                                            </div>-->
+                                                    </div>
+                                                {% else %}
+                                                    <button type="button" class="button add-cart-counter__btn">
+                                                        <span class="add-cart-counter__btn-label">Подробнее</span>
+                                                        <span class="button__icon icon-cart"></span>
+                                                    </button>
+                                                {% endif %}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-
+                                    </form>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -238,9 +229,7 @@
     <!--Новое поступление конец-->
 
     <div
-            class="layout widget-type_system_widget_v4_banner_list_1"
-            style="--img-ratio:2; --banner-border-radius:4px; --zoom-on-hover:false; --grid-list-row-gap:1.5rem; --grid-list-column-gap:1.5rem; --layout-wide-bg:false; --layout-pt:1vw; --layout-pb:1vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
+            class="layout widget-type_system_widget_v4_banner_list_1">
         <div class="layout__content">
             <div class="banner-list grid-list">
 
@@ -346,1217 +335,11 @@
         </div>
     </div>
 
-
-    <div
-            class="layout widget-type_system_widget_v4_banner_2"
-            style="--banner-text-color:#ffffff; --banner-text-color-is-light:true; --banner-text-color-minor-shade:#f7f7f7; --banner-text-color-minor-shade-is-light:true; --banner-text-color-major-shade:#ededed; --banner-text-color-major-shade-is-light:true; --banner-text-color-half-shade:#808080; --banner-text-color-half-shade-is-dark:true; --banner-img:'https://static.insales-cdn.com/files/1/2281/14797033/original/info_2.jpg'; --layout-wide-bg:false; --layout-mt:1vw; --layout-mb:0vw; --layout-pt:0vw; --layout-pb:1vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:true; --hide-desktop:false; --hide-mobile:false;"
-    >
-        <div class="layout__content">
-
-            <!--TODO добавить static/img/info_2.jpg на бг-->
-            <div class="banner-list__item">
-                <div class="banner-list__item-text">
-                    <div class="banner-list__item-title h2">
-                        Десерты на заказ
-                    </div>
-                    <div class="banner-list__item-content">
-                        Сладкие шедевры ручной работы по рецептам нашего шеф-кондитера. Индивидуальные десерты,
-                        разнообразие начинок, индивидуальный подход! Скидки именинникам.
-                    </div>
-
-                    <div class="banner-list__item-button">
-                        <a href="#" class="button button_size-m ">Узнать подробнее</a>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
+<!--Вырезал-->
 
 
     <div
-            class="layout widget-type_system_widget_v4_special_products_1"
-            style="--count_special_products:12; --slide-width:220px; --slide-gap:15rem; --product-border-radius:10px; --img-ratio:1; --img-fit:contain; --product-desc-limit:10; --hide-description:true; --sticker-font-size:1.1rem; --hide-variants:false; --hide-variants-title:true; --hide-sku:true; --slide-width-mobile:150px; --display-property-color:text; --layout-wide-bg:false; --layout-pt:2vw; --layout-pb:2vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
-        <div class="layout__content">
-
-
-            <div class="special-products js-special-products">
-
-                <div class="special-products__head">
-                    <div class="h2 special-products__title heading">Орехи</div>
-                    <div class="special-products__slider-controls">
-                        <div class="special-products__slider-arrow special-products__slider-arrow-prev js-move-slide">
-                            <span class="special-products__slider-arrow-icon icon-arrow-left"></span>
-                        </div>
-                        <div class="special-products__slider-arrow special-products__slider-arrow-next js-move-slide">
-                            <span class="special-products__slider-arrow-icon icon-arrow-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div
-                        class="splide js-special-products-slider"
-                        data-slide-min-width="220"
-                        data-slide-min-width-mobile="150"
-                        data-slide-gap="15"
-                >
-                    <div class="splide__track">
-                        <div class="splide__list">
-
-
-                            <div class="splide__slide">
-                                <form
-                                        action="/cart_items"
-                                        method="post"
-                                        data-product-id="217319295"
-                                        class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                                >
-                                    <div class="product-preview__content">
-                                        <div class="product-preview__area-photo">
-                                            <div class="product-preview__photo">
-
-                                                <div class="img-ratio img-ratio_cover">
-                                                    <div class="img-ratio__inner">
-
-                                                        <a href="/product/funduk-ochischennyy">
-
-
-                                                            <img src="static/img/large_Кешью.webp"
-                                                                 alt="Фундук очищенный, 1 кг">
-
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-preview__available">
-                  <span data-product-card-available='{
-                    "availableText": "В наличии",
-                    "notAvailableText": "Нет в наличии"
-                    }'
-                  >
-
-                  В наличии
-
-                  </span>
-                                                </div>
-                                                <div class="stickers">
-
-                                                    <div class="sticker sticker-sale" data-product-card-sale-value
-                                                         data-sticker-title="sticker-sale"></div>
-                                                    <div class="sticker sticker-preorder"
-                                                         data-sticker-title="sticker-preorder">Предзаказ
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-preview__area-sku">
-                                            <div class="product-preview__sku">
-
-                <span data-product-card-sku='{
-                  "skuLabel": "арт. "
-                  }'
-                >
-                арт.
-                </span>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-title">
-                                            <div class="product-preview__title">
-                                                <a href="/product/funduk-ochischennyy">Фундук очищенный, 1 кг</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-description">
-
-                                        </div>
-
-                                        <div class="product-preview__area-variants">
-
-                                            <input type="hidden" name="variant_id" value="369886221"/>
-
-                                        </div>
-
-                                        <div class="product-preview__area-bottom">
-                                            <div class="product-preview__price">
-                                                    <span class="product-preview__price-old"
-                                                          data-product-card-old-price></span>
-                                                <span class="product-preview__price-cur"
-                                                      data-product-card-price-from-cart></span>
-                                            </div>
-
-                                            <div class="product-preview__price-cur product-preview__price-range">
-
-                                                1600 ₽
-                                            </div>
-
-                                            <div class="product-preview__controls">
-                                                <div class="add-cart-counter" data-add-cart-counter>
-                                                    <button type="button" class="button add-cart-counter__btn"
-                                                            data-add-cart-counter-btn>
-                                                        <span class="add-cart-counter__btn-label">В корзину</span>
-                                                        <span class="button__icon icon-cart"></span>
-                                                    </button>
-                                                    <div class="add-cart-counter__controls">
-                                                        <button data-add-cart-counter-minus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">-
-                                                        </button>
-                                                        <a href="/cart_items"
-                                                           class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                            <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                                        </a>
-                                                        <button data-add-cart-counter-plus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">+
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <button data-product-card-preorder
-                                                        class="button button_wide product-preview__preorder-btn"
-                                                        type="button">Предзаказ
-                                                </button>
-
-                                                <a href="/product/funduk-ochischennyy"
-                                                   class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                                <a href="/product/funduk-ochischennyy"
-                                                   class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                            <div class="splide__slide">
-                                <form
-                                        action="/cart_items"
-                                        method="post"
-                                        data-product-id="217314995"
-                                        class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                                >
-                                    <div class="product-preview__content">
-                                        <div class="product-preview__area-photo">
-                                            <div class="product-preview__photo">
-
-                                                <div class="img-ratio img-ratio_cover">
-                                                    <div class="img-ratio__inner">
-
-                                                        <a href="/product/gretskiy-oreh-1-kg">
-
-
-                                                            <img src="static/img/large_Кешью.webp"
-                                                                 alt="Фундук очищенный, 1 кг">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-preview__available">
-                  <span data-product-card-available='{
-                    "availableText": "В наличии",
-                    "notAvailableText": "Нет в наличии"
-                    }'
-                  >
-
-                  В наличии
-
-                  </span>
-                                                </div>
-                                                <div class="stickers">
-
-                                                    <div class="sticker sticker-sale" data-product-card-sale-value
-                                                         data-sticker-title="sticker-sale"></div>
-                                                    <div class="sticker sticker-preorder"
-                                                         data-sticker-title="sticker-preorder">Предзаказ
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-preview__area-sku">
-                                            <div class="product-preview__sku">
-
-                <span data-product-card-sku='{
-                  "skuLabel": "арт. "
-                  }'
-                >
-                арт.
-                </span>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-title">
-                                            <div class="product-preview__title">
-                                                <a href="/product/gretskiy-oreh-1-kg">Грецкий орех, 1 кг</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-description">
-
-                                        </div>
-
-                                        <div class="product-preview__area-variants">
-
-                                            <input type="hidden" name="variant_id" value="369878118"/>
-
-                                        </div>
-
-                                        <div class="product-preview__area-bottom">
-                                            <div class="product-preview__price">
-                                                    <span class="product-preview__price-old"
-                                                          data-product-card-old-price></span>
-                                                <span class="product-preview__price-cur"
-                                                      data-product-card-price-from-cart></span>
-                                            </div>
-
-                                            <div class="product-preview__price-cur product-preview__price-range">
-
-                                                1110 ₽
-                                            </div>
-
-                                            <div class="product-preview__controls">
-                                                <div class="add-cart-counter" data-add-cart-counter>
-                                                    <button type="button" class="button add-cart-counter__btn"
-                                                            data-add-cart-counter-btn>
-                                                        <span class="add-cart-counter__btn-label">В корзину</span>
-                                                        <span class="button__icon icon-cart"></span>
-                                                    </button>
-                                                    <div class="add-cart-counter__controls">
-                                                        <button data-add-cart-counter-minus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">-
-                                                        </button>
-                                                        <a href="/cart_items"
-                                                           class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                            <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                                        </a>
-                                                        <button data-add-cart-counter-plus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">+
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <button data-product-card-preorder
-                                                        class="button button_wide product-preview__preorder-btn"
-                                                        type="button">Предзаказ
-                                                </button>
-
-                                                <a href="/product/gretskiy-oreh-1-kg"
-                                                   class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                                <a href="/product/gretskiy-oreh-1-kg"
-                                                   class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                            <div class="splide__slide">
-                                <form
-                                        action="/cart_items"
-                                        method="post"
-                                        data-product-id="217318809"
-                                        class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                                >
-                                    <div class="product-preview__content">
-                                        <div class="product-preview__area-photo">
-                                            <div class="product-preview__photo">
-
-                                                <div class="img-ratio img-ratio_cover">
-                                                    <div class="img-ratio__inner">
-
-                                                        <a href="/product/fistashki-v-skorlupe-1-kg">
-
-
-                                                            <img src="static/img/large_Кешью.webp"
-                                                                 alt="Фундук очищенный, 1 кг">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-preview__available">
-                  <span data-product-card-available='{
-                    "availableText": "В наличии",
-                    "notAvailableText": "Нет в наличии"
-                    }'
-                  >
-
-                  В наличии
-
-                  </span>
-                                                </div>
-                                                <div class="stickers">
-
-                                                    <div class="sticker sticker-sale" data-product-card-sale-value
-                                                         data-sticker-title="sticker-sale"></div>
-                                                    <div class="sticker sticker-preorder"
-                                                         data-sticker-title="sticker-preorder">Предзаказ
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-preview__area-sku">
-                                            <div class="product-preview__sku">
-
-                <span data-product-card-sku='{
-                  "skuLabel": "арт. "
-                  }'
-                >
-                арт.
-                </span>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-title">
-                                            <div class="product-preview__title">
-                                                <a href="/product/fistashki-v-skorlupe-1-kg">Фисташки в скорлупе, 1
-                                                    кг</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-description">
-
-                                        </div>
-
-                                        <div class="product-preview__area-variants">
-
-                                            <input type="hidden" name="variant_id" value="369885074"/>
-
-                                        </div>
-
-                                        <div class="product-preview__area-bottom">
-                                            <div class="product-preview__price">
-                                                    <span class="product-preview__price-old"
-                                                          data-product-card-old-price></span>
-                                                <span class="product-preview__price-cur"
-                                                      data-product-card-price-from-cart></span>
-                                            </div>
-
-                                            <div class="product-preview__price-cur product-preview__price-range">
-
-                                                900 ₽
-                                            </div>
-
-                                            <div class="product-preview__controls">
-                                                <div class="add-cart-counter" data-add-cart-counter>
-                                                    <button type="button" class="button add-cart-counter__btn"
-                                                            data-add-cart-counter-btn>
-                                                        <span class="add-cart-counter__btn-label">В корзину</span>
-                                                        <span class="button__icon icon-cart"></span>
-                                                    </button>
-                                                    <div class="add-cart-counter__controls">
-                                                        <button data-add-cart-counter-minus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">-
-                                                        </button>
-                                                        <a href="/cart_items"
-                                                           class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                            <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                                        </a>
-                                                        <button data-add-cart-counter-plus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">+
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <button data-product-card-preorder
-                                                        class="button button_wide product-preview__preorder-btn"
-                                                        type="button">Предзаказ
-                                                </button>
-
-                                                <a href="/product/fistashki-v-skorlupe-1-kg"
-                                                   class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                                <a href="/product/fistashki-v-skorlupe-1-kg"
-                                                   class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                            <div class="splide__slide">
-                                <form
-                                        action="/cart_items"
-                                        method="post"
-                                        data-product-id="217315573"
-                                        class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                                >
-                                    <div class="product-preview__content">
-                                        <div class="product-preview__area-photo">
-                                            <div class="product-preview__photo">
-
-                                                <div class="img-ratio img-ratio_cover">
-                                                    <div class="img-ratio__inner">
-
-                                                        <a href="/product/keshyu">
-
-
-                                                            <img src="static/img/large_Кешью.webp"
-                                                                 alt="Фундук очищенный, 1 кг">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-preview__available">
-                  <span data-product-card-available='{
-                    "availableText": "В наличии",
-                    "notAvailableText": "Нет в наличии"
-                    }'
-                  >
-
-                  В наличии
-
-                  </span>
-                                                </div>
-                                                <div class="stickers">
-
-                                                    <div class="sticker sticker-sale" data-product-card-sale-value
-                                                         data-sticker-title="sticker-sale"></div>
-                                                    <div class="sticker sticker-preorder"
-                                                         data-sticker-title="sticker-preorder">Предзаказ
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-preview__area-sku">
-                                            <div class="product-preview__sku">
-
-                <span data-product-card-sku='{
-                  "skuLabel": "арт. "
-                  }'
-                >
-                арт.
-                </span>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-title">
-                                            <div class="product-preview__title">
-                                                <a href="/product/keshyu">Кешью, 1 кг</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-description">
-
-                                        </div>
-
-                                        <div class="product-preview__area-variants">
-
-                                            <input type="hidden" name="variant_id" value="369878808"/>
-
-                                        </div>
-
-                                        <div class="product-preview__area-bottom">
-                                            <div class="product-preview__price">
-                                                    <span class="product-preview__price-old"
-                                                          data-product-card-old-price></span>
-                                                <span class="product-preview__price-cur"
-                                                      data-product-card-price-from-cart></span>
-                                            </div>
-
-                                            <div class="product-preview__price-cur product-preview__price-range">
-
-                                                1128 ₽
-                                            </div>
-
-                                            <div class="product-preview__controls">
-                                                <div class="add-cart-counter" data-add-cart-counter>
-                                                    <button type="button" class="button add-cart-counter__btn"
-                                                            data-add-cart-counter-btn>
-                                                        <span class="add-cart-counter__btn-label">В корзину</span>
-                                                        <span class="button__icon icon-cart"></span>
-                                                    </button>
-                                                    <div class="add-cart-counter__controls">
-                                                        <button data-add-cart-counter-minus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">-
-                                                        </button>
-                                                        <a href="/cart_items"
-                                                           class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                            <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                                        </a>
-                                                        <button data-add-cart-counter-plus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">+
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <button data-product-card-preorder
-                                                        class="button button_wide product-preview__preorder-btn"
-                                                        type="button">Предзаказ
-                                                </button>
-
-                                                <a href="/product/keshyu"
-                                                   class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                                <a href="/product/keshyu"
-                                                   class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                            <div class="splide__slide">
-                                <form
-                                        action="/cart_items"
-                                        method="post"
-                                        data-product-id="217318653"
-                                        class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                                >
-                                    <div class="product-preview__content">
-                                        <div class="product-preview__area-photo">
-                                            <div class="product-preview__photo">
-
-                                                <div class="img-ratio img-ratio_cover">
-                                                    <div class="img-ratio__inner">
-
-                                                        <a href="/product/mindal-1-kg">
-
-
-                                                            <img src="static/img/large_Кешью.webp"
-                                                                 alt="Фундук очищенный, 1 кг">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-preview__available">
-                  <span data-product-card-available='{
-                    "availableText": "В наличии",
-                    "notAvailableText": "Нет в наличии"
-                    }'
-                  >
-
-                  В наличии
-
-                  </span>
-                                                </div>
-                                                <div class="stickers">
-
-                                                    <div class="sticker sticker-sale" data-product-card-sale-value
-                                                         data-sticker-title="sticker-sale"></div>
-                                                    <div class="sticker sticker-preorder"
-                                                         data-sticker-title="sticker-preorder">Предзаказ
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-preview__area-sku">
-                                            <div class="product-preview__sku">
-
-                <span data-product-card-sku='{
-                  "skuLabel": "арт. "
-                  }'
-                >
-                арт.
-                </span>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-title">
-                                            <div class="product-preview__title">
-                                                <a href="/product/mindal-1-kg">Миндаль, 1 кг</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-description">
-
-                                        </div>
-
-                                        <div class="product-preview__area-variants">
-
-                                            <input type="hidden" name="variant_id" value="369884476"/>
-
-                                        </div>
-
-                                        <div class="product-preview__area-bottom">
-                                            <div class="product-preview__price">
-                                                    <span class="product-preview__price-old"
-                                                          data-product-card-old-price></span>
-                                                <span class="product-preview__price-cur"
-                                                      data-product-card-price-from-cart></span>
-                                            </div>
-
-                                            <div class="product-preview__price-cur product-preview__price-range">
-
-                                                1500 ₽
-                                            </div>
-
-                                            <div class="product-preview__controls">
-                                                <div class="add-cart-counter" data-add-cart-counter>
-                                                    <button type="button" class="button add-cart-counter__btn"
-                                                            data-add-cart-counter-btn>
-                                                        <span class="add-cart-counter__btn-label">В корзину</span>
-                                                        <span class="button__icon icon-cart"></span>
-                                                    </button>
-                                                    <div class="add-cart-counter__controls">
-                                                        <button data-add-cart-counter-minus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">-
-                                                        </button>
-                                                        <a href="/cart_items"
-                                                           class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                            <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                                        </a>
-                                                        <button data-add-cart-counter-plus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">+
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <button data-product-card-preorder
-                                                        class="button button_wide product-preview__preorder-btn"
-                                                        type="button">Предзаказ
-                                                </button>
-
-                                                <a href="/product/mindal-1-kg"
-                                                   class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                                <a href="/product/mindal-1-kg"
-                                                   class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                            <div class="splide__slide">
-                                <form
-                                        action="/cart_items"
-                                        method="post"
-                                        data-product-id="217319106"
-                                        class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                                >
-                                    <div class="product-preview__content">
-                                        <div class="product-preview__area-photo">
-                                            <div class="product-preview__photo">
-
-                                                <div class="img-ratio img-ratio_cover">
-                                                    <div class="img-ratio__inner">
-
-                                                        <a href="/product/funduk-v-skorlupe">
-
-
-                                                            <img src="static/img/large_Кешью.webp"
-                                                                 alt="Фундук очищенный, 1 кг">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-preview__available">
-                  <span data-product-card-available='{
-                    "availableText": "В наличии",
-                    "notAvailableText": "Нет в наличии"
-                    }'
-                  >
-
-                  В наличии
-
-                  </span>
-                                                </div>
-                                                <div class="stickers">
-
-                                                    <div class="sticker sticker-sale" data-product-card-sale-value
-                                                         data-sticker-title="sticker-sale"></div>
-                                                    <div class="sticker sticker-preorder"
-                                                         data-sticker-title="sticker-preorder">Предзаказ
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product-preview__area-sku">
-                                            <div class="product-preview__sku">
-
-                <span data-product-card-sku='{
-                  "skuLabel": "арт. "
-                  }'
-                >
-                арт.
-                </span>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-title">
-                                            <div class="product-preview__title">
-                                                <a href="/product/funduk-v-skorlupe">Фундук в скорлупе, 1 кг</a>
-                                            </div>
-                                        </div>
-
-                                        <div class="product-preview__area-description">
-
-                                        </div>
-
-                                        <div class="product-preview__area-variants">
-
-                                            <input type="hidden" name="variant_id" value="369885643"/>
-
-                                        </div>
-
-                                        <div class="product-preview__area-bottom">
-                                            <div class="product-preview__price">
-                                                    <span class="product-preview__price-old"
-                                                          data-product-card-old-price></span>
-                                                <span class="product-preview__price-cur"
-                                                      data-product-card-price-from-cart></span>
-                                            </div>
-
-                                            <div class="product-preview__price-cur product-preview__price-range">
-
-                                                1000 ₽
-                                            </div>
-
-                                            <div class="product-preview__controls">
-                                                <div class="add-cart-counter" data-add-cart-counter>
-                                                    <button type="button" class="button add-cart-counter__btn"
-                                                            data-add-cart-counter-btn>
-                                                        <span class="add-cart-counter__btn-label">В корзину</span>
-                                                        <span class="button__icon icon-cart"></span>
-                                                    </button>
-                                                    <div class="add-cart-counter__controls">
-                                                        <button data-add-cart-counter-minus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">-
-                                                        </button>
-                                                        <a href="/cart_items"
-                                                           class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                            <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                                        </a>
-                                                        <button data-add-cart-counter-plus
-                                                                class="button add-cart-counter__controls-btn"
-                                                                type="button">+
-                                                        </button>
-                                                    </div>
-                                                </div>
-
-                                                <button data-product-card-preorder
-                                                        class="button button_wide product-preview__preorder-btn"
-                                                        type="button">Предзаказ
-                                                </button>
-
-                                                <a href="/product/funduk-v-skorlupe"
-                                                   class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                                <a href="/product/funduk-v-skorlupe"
-                                                   class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-
-
-    <div
-            class="layout widget-type_system_widget_v4_benefits_2"
-            style="--grid-list-min-width:330px; --grid-list-row-gap:2rem; --grid-list-column-gap:2rem; --img-ratio:1; --img-border-radius:6px; --layout-wide-bg:false; --layout-pt:1vw; --layout-pb:1vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
-        <div class="layout__content">
-            <div class="benefit-list__title h2">Наши плюсы</div>
-            <div class="benefit-list grid-list" data-blocks-size="3">
-
-                <div data-block-id="12949906" class="benefit-list__item editable-block">
-
-                    <div class="img-ratio img-ratio_cover benefit-list__item-image">
-                        <div class="img-ratio__inner">
-
-                            <img src="static/img/tablet.svg"
-                                 title="Широкий ассортимент"/>
-
-                        </div>
-                    </div>
-
-                    <div class="benefit-list__item-title">
-                        Широкий ассортимент
-                    </div>
-                    <div class="benefit-list__item-description">
-                        <p>Мы закупаем фрукты и овощи по всему миру &ndash; от Эквадора до Китая. Более 400 сортов
-                            овощей и фруктов представлены на наших прилавках.</p>
-                    </div>
-                </div>
-
-                <div data-block-id="12949907" class="benefit-list__item editable-block">
-
-                    <div class="img-ratio img-ratio_cover benefit-list__item-image">
-                        <div class="img-ratio__inner">
-
-                            <img src="static/img/like.svg"
-                                 title="Всегда свежие"/>
-
-                        </div>
-                    </div>
-
-                    <div class="benefit-list__item-title">
-                        Всегда свежие
-                    </div>
-                    <div class="benefit-list__item-description">
-                        <p>Фрукты и овощи перевозятся в машинах-рефрижераторах с разными режимами температуры. Мы
-                            знаем, сколько градусов внутри каждого плода!</p>
-                    </div>
-                </div>
-
-                <div data-block-id="12949908" class="benefit-list__item editable-block">
-
-                    <div class="img-ratio img-ratio_cover benefit-list__item-image">
-                        <div class="img-ratio__inner">
-
-                            <img src="static/img/medal.svg"
-                                 title="Контроль качества"/>
-
-                        </div>
-                    </div>
-
-                    <div class="benefit-list__item-title">
-                        Контроль качества
-                    </div>
-                    <div class="benefit-list__item-description">
-                        <p>Мы контролируем качество &ndash; от поставщика до полки. Для хранения мы используем самое
-                            современное оборудование.</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-
-    <div
-            class="layout widget-type_system_widget_v4_banner_list_3"
-            style="--align-title:left; --slide-width:200px; --open-link:normal; --img-ratio:1; --slide-gap:30rem; --slide-width-mobile:150px; --layout-wide-bg:true; --layout-pt:2vw; --layout-pb:2vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
-        <div class="layout__content">
-            <div class="brands banner-list">
-                <div class="brands__head">
-                    <div class="brands__title heading">
-
-                        Бренды
-
-                    </div>
-                    <div class="brands__slider-controls">
-                        <div class="banner-list__arrow banner-list__arrow-prev js-move-slide">
-                            <span class="banner-list__arrow-icon icon-arrow-left"></span>
-                        </div>
-                        <div class="banner-list__arrow banner-list__arrow-next js-move-slide">
-                            <span class="banner-list__arrow-icon icon-arrow-right"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="splide js-banner-list-slider"
-                     data-slide-min-width="200"
-                     data-slide-gap="30"
-                     data-slide-min-width-mobile="150"
-                >
-                    <div class="splide__track">
-                        <div class="splide__list">
-
-
-                            <div class="splide__slide">
-
-                                <div class="brands__item">
-
-                                    <div class="img-ratio img-ratio_contain">
-                                        <div class="img-ratio__inner">
-
-
-                                            <img src="static/img/Component.webp" alt="Фундук очищенный, 1 кг">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="splide__slide">
-
-                                <div class="brands__item">
-
-                                    <div class="img-ratio img-ratio_contain">
-                                        <div class="img-ratio__inner">
-
-
-                                            <img src="static/img/Component.webp" alt="Фундук очищенный, 1 кг">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="splide__slide">
-
-                                <div class="brands__item">
-
-                                    <div class="img-ratio img-ratio_contain">
-                                        <div class="img-ratio__inner">
-
-
-                                            <img src="static/img/Component.webp" alt="Фундук очищенный, 1 кг">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="splide__slide">
-
-                                <div class="brands__item">
-
-                                    <div class="img-ratio img-ratio_contain">
-                                        <div class="img-ratio__inner">
-
-
-                                            <img src="static/img/Component.webp" alt="Фундук очищенный, 1 кг">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="splide__slide">
-
-                                <div class="brands__item">
-
-                                    <div class="img-ratio img-ratio_contain">
-                                        <div class="img-ratio__inner">
-
-
-                                            <img src="static/img/Component.webp" alt="Фундук очищенный, 1 кг">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="splide__slide">
-
-                                <div class="brands__item">
-
-                                    <div class="img-ratio img-ratio_contain">
-                                        <div class="img-ratio__inner">
-
-
-                                            <img src="static/img/Component.webp" alt="Фундук очищенный, 1 кг">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="splide__slide">
-
-                                <div class="brands__item">
-
-                                    <div class="img-ratio img-ratio_contain">
-                                        <div class="img-ratio__inner">
-
-
-                                            <img src="static/img/Component.webp" alt="Фундук очищенный, 1 кг">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="swiper-pagination js-banner-list-slider-pagination"></div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-    <div
-            class="layout widget-type_system_widget_v4_article_previews_1"
-            style="--hide-title:false; --grid-list-min-width:260px; --grid-list-row-gap:2rem; --grid-list-column-gap:2rem; --img-fit:cover; --img-ratio:1; --img-border-radius:10px; --article_desc_limit:20; --hide-description:true; --hide-date:false; --layout-wide-bg:false; --layout-pt:0vw; --layout-pb:0vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
-        <div class="layout__content">
-
-
-            <div class="h2 article-list__title heading">Акции</div>
-
-            <div class="article-list grid-list">
-
-
-                <div
-                        class="article-list__item">
-                    <div class="img-ratio img-ratio_cover article-list__item-photo">
-                        <div class="img-ratio__inner">
-
-                            <a href="/blogs/blog/otbornye-frukty-i-ovoschi-s-privlekatelnoy-tsenoy">
-
-                                <img src="static/img/large_Фото__9_.webp" alt="Фундук очищенный, 1 кг">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="article-list__item-title">
-                        <a href="/blogs/blog/otbornye-frukty-i-ovoschi-s-privlekatelnoy-tsenoy">Отборные фрукты и
-                            овощи, с привлекательной ценой</a>
-                    </div>
-
-                    <div class="article-list__item-description ">
-                        c 01.07.2020 по 01.12.2020
-                    </div>
-
-
-                    <div class="article-list__item-date">
-                        10.11.2020
-                    </div>
-
-                </div>
-
-                <div
-                        class="article-list__item">
-                    <div class="img-ratio img-ratio_cover article-list__item-photo">
-                        <div class="img-ratio__inner">
-
-                            <a href="/blogs/blog/dni-ispanskoy-kuhni-2">
-
-                                <img src="static/img/large_Фото__9_.webp" alt="Фундук очищенный, 1 кг">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="article-list__item-title">
-                        <a href="/blogs/blog/dni-ispanskoy-kuhni-2">Дни испанской кухни</a>
-                    </div>
-
-                    <div class="article-list__item-description ">
-                        c 01.07.2020 по 01.12.2020
-                    </div>
-
-
-                    <div class="article-list__item-date">
-                        10.11.2020
-                    </div>
-
-                </div>
-
-                <div
-                        class="article-list__item">
-                    <div class="img-ratio img-ratio_cover article-list__item-photo">
-                        <div class="img-ratio__inner">
-
-                            <a href="/blogs/blog/second">
-
-                                <img src="static/img/large_Фото__9_.webp" alt="Фундук очищенный, 1 кг">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="article-list__item-title">
-                        <a href="/blogs/blog/second">Скидка на зерновой кофе</a>
-                    </div>
-
-                    <div class="article-list__item-description ">
-                        А это уже вторая новость в интернет-магазине.
-                    </div>
-
-
-                    <div class="article-list__item-date">
-                        20.07.2017
-                    </div>
-
-                </div>
-
-                <div
-                        class="article-list__item">
-                    <div class="img-ratio img-ratio_cover article-list__item-photo">
-                        <div class="img-ratio__inner">
-
-                            <a href="/blogs/blog/first">
-
-                                <img src="static/img/large_Фото__9_.webp" alt="Фундук очищенный, 1 кг">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="article-list__item-title">
-                        <a href="/blogs/blog/first">Скидка на всю выпечку 40% после 19:00</a>
-                    </div>
-
-                    <div class="article-list__item-description ">
-                        Поздравляем!
-                        Это первая новость в интернет-магазине.
-                    </div>
-
-
-                    <div class="article-list__item-date">
-                        31.01.2016
-                    </div>
-
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-
-
-    <div
-            class="layout widget-type_system_widget_v4_shop-reviews_1"
-            style="--rating-color:#ff4100; --rating-color-is-dark:true; --rating-color-minor-shade:#ff531a; --rating-color-minor-shade-is-dark:true; --rating-color-major-shade:#ff6633; --rating-color-major-shade-is-dark:true; --rating-color-half-shade:#ff9f80; --rating-color-half-shade-is-light:true; --grid-list-min-width:330px; --grid-list-row-gap:2rem; --grid-list-column-gap:2rem; --border-radius:0px; --hide-rating:true; --hide-date:false; --layout-wide-bg:false; --layout-pt:2vw; --layout-pb:2vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
+            class="layout widget-type_system_widget_v4_shop-reviews_1">
         <div class="layout__content">
             <div class="reviews">
 
@@ -1606,9 +389,7 @@
 
 
     <div
-            class="layout widget-type_system_widget_v4_feedback_1"
-            style="--align-title:center; --hide-use-agree:false; --layout-wide-bg:true; --layout-pt:2vw; --layout-pb:2vw; --layout-content-max-width:680px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
+            class="layout widget-type_system_widget_v4_feedback_1">
         <div class="layout__content">
             <div class="feedback">
 

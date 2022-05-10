@@ -1,11 +1,6 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import Images, Groups, ViewNomenclature, TypeNomenclature, Taxes, Products, PriceTypes, \
+from .models import Groups, ViewNomenclature, TypeNomenclature, Taxes, Products, PriceTypes, \
     Organisations, Stocks, BaseUnits, Currency
-
-
-@register(Images)
-class CategoryTranslationOptions(TranslationOptions):
-    fields = ('title',)
 
 
 @register(BaseUnits)

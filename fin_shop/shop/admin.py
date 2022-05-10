@@ -4,11 +4,6 @@ from modeltranslation.admin import TranslationAdmin
 from . import models
 
 
-@admin.register(models.Images)
-class ImagesAdmin(TranslationAdmin):
-    list_display = ("title", "url", "image")
-
-
 @admin.register(models.BaseUnits)
 class BaseUnitsAdmin(TranslationAdmin):
     list_display = ("name", "value")
@@ -37,9 +32,9 @@ class TaxesAdmin(TranslationAdmin):
 @admin.register(models.Products)
 class ProductsAdmin(TranslationAdmin):
     list_display = (
-        "id", "name", "vendor_code", "description", "product_image", "base_unit", "group", "weight",
-        "view_nomenclature", "tax",
+        "id", "name", "vendor_code", "description", "image", "base_unit", "group", "weight", "view_nomenclature", "tax",
         "flag_removal")
+    readonly_fields = ('quantity',)
 
 
 @admin.register(models.PriceTypes)
