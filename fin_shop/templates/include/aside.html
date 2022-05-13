@@ -1,12 +1,11 @@
+{% load filter_url %}
 <aside>
     <div
             class="layout widget-type_system_widget_v4_sidebar_filter_1"
             style="--font-size-filter:1.25rem; --font-weight-filter:600; --display-property-color:text; --hide-sorting-on-mobile:false; --layout-pt:0vw; --layout-pb:0vw; --hide-desktop:false; --hide-mobile:false;"
     >
         <div class="layout__content">
-
-
-            <form action="/collection/all" method="get" class="filter">
+            <form action="/catalog/" method="get" class="filter">
                 <div class="filter__content">
                     <div class="filter__head">
                         <div class="filter__head-title">Фильтры</div>
@@ -21,42 +20,33 @@
                     <div class="filter__items">
 
 
-                        <div class="filter-item filter-item_price">
-                            <div class="filter-item__head">
-                                <span class="filter-item__name js-toggle-show-filter-item">Цена</span>
+                    <div class="filter-item filter-item_price">
+                        <div class="filter-item__head">
+                            <span class="filter-item__name js-toggle-show-filter-item">Цена</span>
 
-                            </div>
-                            <div class="filter-item__content">
-                                <div
-                                        class="filter-range js-filter-range"
-                                        data-range-min="0"
-                                        data-range-max="1990"
-                                        data-range-start="0"
-                                        data-range-end="1990"
-                                        data-range-step="1"
-                                >
-                                    <div class="filter-range__slider"></div>
-                                    <div class="filter-range__values">
-                                        <div class="filter-range__values-item">
-                                            <span class="filter-range__values-label">от</span>
-                                            <input
-                                                    class="form-control form-control_size-s filter-range__field filter-range__field-min"
-                                                    type="text"
-                                                    name="price_min"
-                                                    value=""
-                                                    disabled
-                                            />
-                                        </div>
-                                        <div class="filter-range__values-item">
-                                            <span class="filter-range__values-label">до</span>
-                                            <input
-                                                    class="form-control form-control_size-s filter-range__field filter-range__field-max"
-                                                    type="text"
-                                                    name="price_max"
-                                                    value=""
-                                                    disabled
-                                            />
-                                        </div>
+                        </div>
+                        <div class="filter-item__content">
+                                <div class="filter-range__slider"></div>
+                                <div class="filter-range__values">
+                                    <div class="filter-range__values-item">
+                                        <span class="filter-range__values-label">от</span>
+                                        <input
+                                                class="form-control form-control_size-s filter-range__field filter-range__field-min"
+                                                type="text"
+                                                name="price_min"
+                                                value=""
+                                                disabled
+                                        />
+                                    </div>
+                                    <div class="filter-range__values-item">
+                                        <span class="filter-range__values-label">до</span>
+                                        <input
+                                                class="form-control form-control_size-s filter-range__field filter-range__field-max"
+                                                type="text"
+                                                name="price_max"
+                                                value=""
+                                                disabled
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -65,804 +55,91 @@
 
                         <div class="filter-item filter-item_option">
                             <div class="filter-item__head">
-                                <span class="filter-item__name js-toggle-show-filter-item">Масса</span>
-                            </div>
-                            <div class="filter-item__content">
-                                <div class="filter-item__list">
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="17940355"
-                                                   name="options[2235416][]"
-                                                   id="17940355"
-                                            />
-                                            <span class="filter-option__content">
-                  <span class="filter-option__btn icon-check"></span>
-                  <span class="filter-option__label">3</span>
-                </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="17940400"
-                                                   name="options[2235416][]"
-                                                   id="17940400"
-                                            />
-                                            <span class="filter-option__content">
-                  <span class="filter-option__btn icon-check"></span>
-                  <span class="filter-option__label">3 кг</span>
-                </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="17940408"
-                                                   name="options[2235416][]"
-                                                   id="17940408"
-                                            />
-                                            <span class="filter-option__content">
-                  <span class="filter-option__btn icon-check"></span>
-                  <span class="filter-option__label">2 кг</span>
-                </span>
-                                        </label>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="filter-item filter-item_property">
-                            <div class="filter-item__head">
-                                <span class="filter-item__name js-toggle-show-filter-item">Характеристика 1</span>
-                            </div>
-                            <div class="filter-item__content">
-
-
-                                <div class="filter-item__list">
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="98299511"
-                                                   name="characteristics[]"
-                                                   id="98299511"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">значение 1</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="filter-item filter-item_property">
-                            <div class="filter-item__head">
-                                <span class="filter-item__name js-toggle-show-filter-item">Характеристика 2</span>
-                            </div>
-                            <div class="filter-item__content">
-
-
-                                <div class="filter-item__list">
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="98299512"
-                                                   name="characteristics[]"
-                                                   id="98299512"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">значение 2</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="filter-item filter-item_property">
-                            <div class="filter-item__head">
-                                <span class="filter-item__name js-toggle-show-filter-item">Характеристика 3</span>
-                            </div>
-                            <div class="filter-item__content">
-
-
-                                <div class="filter-item__list">
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="98299514"
-                                                   name="characteristics[]"
-                                                   id="98299514"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">значение 3</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="filter-item filter-item_property">
-                            <div class="filter-item__head">
                                 <span class="filter-item__name js-toggle-show-filter-item">Страна</span>
                             </div>
                             <div class="filter-item__content">
-
-
                                 <div class="filter-item__list">
 
                                     <div class="filter-item__list-item">
                                         <label class="filter-option _checkbox">
                                             <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99344607"
-                                                   name="characteristics[]"
-                                                   id="99344607"
+                                                   value="option_1"
+                                                   name="country"
                                             />
                                             <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Россия</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99344642"
-                                                   name="characteristics[]"
-                                                   id="99344642"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Китай</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99792124"
-                                                   name="characteristics[]"
-                                                   id="99792124"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Испания</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99792547"
-                                                   name="characteristics[]"
-                                                   id="99792547"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Финляндия</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99793644"
-                                                   name="characteristics[]"
-                                                   id="99793644"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Беларусь</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99793970"
-                                                   name="characteristics[]"
-                                                   id="99793970"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Армения</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99802214"
-                                                   name="characteristics[]"
-                                                   id="99802214"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Уругвай</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99802533"
-                                                   name="characteristics[]"
-                                                   id="99802533"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Эквадор</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99804224"
-                                                   name="characteristics[]"
-                                                   id="99804224"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Турция</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99805617"
-                                                   name="characteristics[]"
-                                                   id="99805617"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Абхазия</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99806948"
-                                                   name="characteristics[]"
-                                                   id="99806948"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Эстония</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99807544"
-                                                   name="characteristics[]"
-                                                   id="99807544"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Италия</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99808673"
-                                                   name="characteristics[]"
-                                                   id="99808673"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Грузия</span>
-                  </span>
-                                        </label>
-                                    </div>
-
-                                    <div class="filter-item__list-item">
-                                        <label class="filter-option _checkbox">
-                                            <input autocomplete="off" class="filter-option__field" type="checkbox"
-                                                   value="99925498"
-                                                   name="characteristics[]"
-                                                   id="99925498"
-                                            />
-                                            <span class="filter-option__content">
-                    <span class="filter-option__btn icon-check"></span>
-                    <span class="filter-option__label">Индия</span>
-                  </span>
+                                              <span class="filter-option__btn icon-check"></span>
+                                              <span class="filter-option__label">option 1</span>
+                                            </span>
                                         </label>
                                     </div>
 
                                 </div>
-
                             </div>
                         </div>
 
+                        <div class="filter__controls">
+                            <button class="button button_wide" type="submit">Применить</button>
+                        </div>
                     </div>
                 </div>
-
-                <div class="filter__controls">
-                    <button class="button button_wide" type="submit">Применить</button>
-                </div>
-
-
             </form>
 
 
             <div class="filter-mobile-controls">
-
                 <div class="collection-sort">
-                    <form class="collection-order-wrapper" action="/collection/all" method="get">
+                    <form class="collection-order-wrapper" action="" method="get">
                         <div class="collection-order is-sort">
                             <div class="select-wrapper">
                                 <select class="js-sorting-trigger form-control form-control_size-m" name="order">
                                     <option value=''>Сортировка</option>
-                                    <option value='price'>по возрастанию цены</option>
-                                    <option value='descending_price'>по убыванию цены</option>
-                                    <option value='descending_age'>сначала новые</option>
-                                    <option value='title'>по названию</option>
+                                    <option value='-id'>сначала новые</option>
+                                    <option value='name'>по названию</option>
                                 </select>
                             </div>
                         </div>
-
-
                     </form>
                 </div>
-
-
                 <button type="button" class="button button_size-m show-mobile-filter-btn js-show-mobile-filter">
                     <span class="icon icon-sliders"></span>
                     <span class="show-mobile-filter-btn__bage icon-check"></span>
                 </button>
-
             </div>
-
-
         </div>
     </div>
-
-
     <div
             class="layout widget-type_system_widget_v4_sidebar_collections_menu_1"
-            style="--hide-title:true; --layout-pt:0vw; --layout-pb:0vw; --hide-desktop:false; --hide-mobile:true;"
-    >
+            style="--hide-title:true; --layout-pt:0vw; --layout-pb:0vw; --hide-desktop:false; --hide-mobile:true;">
         <div class="layout__content">
             <div class="sidebar-collections">
-
-
                 <ul class="sidebar-collections__menu" data-navigation>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
+                    {% for main_group, groups in groups_catalog.items %}
+                    <li class="sidebar-collections__item">
                         <div class="sidebar-collections__controls with-submenu">
-                            <a href="/collection/kategoriya-2" class="sidebar-collections__link"
-                               data-navigation-link="/collection/kategoriya-2">
-                                Овощи, фрукты, ягоды
+                            <a href="{% filter_url main_group.name 'group' request.GET.urlencode %}" class="sidebar-collections__link">
+                                {{ main_group.name }}
                             </a>
-
-
                             <button class="button button_size-s sidebar-collections__show-submenu-btn js-show-submenu"
                                     type="button">
                                 <span class="icon icon-angle-down"></span>
                             </button>
-
                         </div>
 
-
-                        <ul class="sidebar-collections__submenu" data-navigation-submenu>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
+                        {% for group in groups %}
+                        <ul class="sidebar-collections__submenu">
+                            <li class="sidebar-collections__item">
                                 <div class="sidebar-collections__controls ">
-                                    <a href="/collection/frukty" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/frukty">
-                                        Фрукты и ягоды
+                                    <a href="{% filter_url group.name 'group' request.GET.urlencode %}" class="sidebar-collections__link">
+                                        {{ group.name }}
                                     </a>
-
-
                                 </div>
-
-
                             </li>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/ovoschi" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/ovoschi">
-                                        Овощи
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/zelen" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/zelen">
-                                        Зелень
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
                         </ul>
-
-
+                        {% endfor %}
                     </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls ">
-                            <a href="/collection/katalog-3" class="sidebar-collections__link"
-                               data-navigation-link="/collection/katalog-3">
-                                Рыба, икра
-                            </a>
-
-
-                        </div>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls ">
-                            <a href="/collection/popular" class="sidebar-collections__link"
-                               data-navigation-link="/collection/popular">
-                                Популярные товары
-                            </a>
-
-
-                        </div>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls ">
-                            <a href="/collection/frontpage" class="sidebar-collections__link"
-                               data-navigation-link="/collection/frontpage">
-                                Новое поступление
-                            </a>
-
-
-                        </div>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls with-submenu">
-                            <a href="/collection/ptitsa-myaso" class="sidebar-collections__link"
-                               data-navigation-link="/collection/ptitsa-myaso">
-                                Птица, мясо
-                            </a>
-
-
-                            <button class="button button_size-s sidebar-collections__show-submenu-btn js-show-submenu"
-                                    type="button">
-                                <span class="icon icon-angle-down"></span>
-                            </button>
-
-                        </div>
-
-
-                        <ul class="sidebar-collections__submenu" data-navigation-submenu>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/ptitsa" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/ptitsa">
-                                        Птица
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/govyadina" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/govyadina">
-                                        Говядина
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/svinina" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/svinina">
-                                        Свинина
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
-                        </ul>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls ">
-                            <a href="/collection/moloko-syr-yaytsa" class="sidebar-collections__link"
-                               data-navigation-link="/collection/moloko-syr-yaytsa">
-                                Молоко, сыр, яйца
-                            </a>
-
-
-                        </div>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls ">
-                            <a href="/collection/vody-soki-napitki" class="sidebar-collections__link"
-                               data-navigation-link="/collection/vody-soki-napitki">
-                                Вода, соки, напитки
-                            </a>
-
-
-                        </div>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls with-submenu">
-                            <a href="/collection/chay-kofe" class="sidebar-collections__link"
-                               data-navigation-link="/collection/chay-kofe">
-                                Чай, кофе
-                            </a>
-
-
-                            <button class="button button_size-s sidebar-collections__show-submenu-btn js-show-submenu"
-                                    type="button">
-                                <span class="icon icon-angle-down"></span>
-                            </button>
-
-                        </div>
-
-
-                        <ul class="sidebar-collections__submenu" data-navigation-submenu>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/chay" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/chay">
-                                        Чай
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
-                        </ul>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls ">
-                            <a href="/collection/katalog-1-2053bd" class="sidebar-collections__link"
-                               data-navigation-link="/collection/katalog-1-2053bd">
-                                Орехи
-                            </a>
-
-
-                        </div>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls with-submenu">
-                            <a href="/collection/hleb-bulki" class="sidebar-collections__link"
-                               data-navigation-link="/collection/hleb-bulki">
-                                Хлеб, сдоба, выпечка
-                            </a>
-
-
-                            <button class="button button_size-s sidebar-collections__show-submenu-btn js-show-submenu"
-                                    type="button">
-                                <span class="icon icon-angle-down"></span>
-                            </button>
-
-                        </div>
-
-
-                        <ul class="sidebar-collections__submenu" data-navigation-submenu>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/hleb" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/hleb">
-                                        Хлеб
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/bulochki-sdoba" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/bulochki-sdoba">
-                                        Булочки, сдоба
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/rulety-kruassany-keksy" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/rulety-kruassany-keksy">
-                                        Рулеты, круассаны, кексы
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
-                        </ul>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls ">
-                            <a href="/collection/krupy-spetsii" class="sidebar-collections__link"
-                               data-navigation-link="/collection/krupy-spetsii">
-                                Крупы, специи
-                            </a>
-
-
-                        </div>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls with-submenu">
-                            <a href="/collection/katalog-1-c000b6" class="sidebar-collections__link"
-                               data-navigation-link="/collection/katalog-1-c000b6">
-                                Товары для дома
-                            </a>
-
-
-                            <button class="button button_size-s sidebar-collections__show-submenu-btn js-show-submenu"
-                                    type="button">
-                                <span class="icon icon-angle-down"></span>
-                            </button>
-
-                        </div>
-
-
-                        <ul class="sidebar-collections__submenu" data-navigation-submenu>
-
-
-                            <li class="sidebar-collections__item" data-navigation-item>
-                                <div class="sidebar-collections__controls ">
-                                    <a href="/collection/hranenie" class="sidebar-collections__link"
-                                       data-navigation-link="/collection/hranenie">
-                                        Хранение
-                                    </a>
-
-
-                                </div>
-
-
-                            </li>
-
-
-                        </ul>
-
-
-                    </li>
-
-
-                    <li class="sidebar-collections__item" data-navigation-item>
-                        <div class="sidebar-collections__controls ">
-                            <a href="/collection/katalog-1-62683d" class="sidebar-collections__link"
-                               data-navigation-link="/collection/katalog-1-62683d">
-                                Красота, гигиена
-                            </a>
-
-
-                        </div>
-
-
-                    </li>
-
-
+                    {% endfor %}
                 </ul>
             </div>
-
         </div>
     </div>
-
-
 </aside>
 

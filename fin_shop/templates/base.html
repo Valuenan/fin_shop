@@ -40,16 +40,10 @@
     </div>
 </noscript>
 
-<div class="page_layout page_layout-clear ">
-    {% include 'include/header.html' %}
+{% block main %}
 
-    {% block content %}
+{% endblock main %}
 
-    {% endblock content %}
-
-    {% include 'include/footer.html' %}
-
-</div>
 </body>
 
 
@@ -63,24 +57,16 @@
 <script src='/static/js/microAlert.js'></script>
 <link href='/static/css/microAlert.css' rel='stylesheet' type='text/css'/>
 <script src='/static/js/jquery.cut-list.js'></script>
-<link href='/static/css/jquery.cut-list.css'
-      rel='stylesheet' type='text/css'/>
+<link href='/static/css/jquery.cut-list.css' rel='stylesheet' type='text/css'/>
 <script src='/static/js/lazyload.min.js'></script>
 
-
 <link rel="stylesheet" type="text/css" href="/static/css/style-widget.css">
-<script src="/static/js/script.js"></script>
 
+{% block script %}{% endblock script %}
 
 
 <link rel="preload" as="style" href="/static/css/style.css">
-
-<link rel="stylesheet"
-      href="/static/css/style.css"
-      media="print"
-      onload="this.media='all'"/>
-
-
+<link rel="stylesheet" href="/static/css/style.css" media="print" onload="this.media='all'"/>
 <link href="/static/css/theme.css" rel="stylesheet" type="text/css"
       onload="document.body.classList.add('settings_loaded');"/>
 

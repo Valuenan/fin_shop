@@ -1,5 +1,8 @@
-{% extends 'base.html' %}
-{% load verbose_names %}
+{% extends 'shop/base.html' %}
+{% load verbose_names filter_url %}
+{% block layout_class %}
+    <div class="page_layout page_layout_normal_left page_layout_section_top ">
+{% endblock layout_class %}
 {% block content %}
 <section class="page_section_top">
 
@@ -32,15 +35,14 @@
                 </h1>
                 <div class="collection-sort">
 
-                    <form class="collection-order-wrapper" action="/collection/all" method="get">
+                    <form class="collection-order-wrapper" action="" method="get">
                         <div class="collection-order is-sort">
                             <div class="select-wrapper">
                                 <select class="js-filter-trigger form-control form-control_size-m" name="order">
+                                    <!--  Сортировка    -->
                                     <option value=''>Сортировка</option>
-                                    <option value='price'>по возрастанию цены</option>
-                                    <option value='descending_price'>по убыванию цены</option>
-                                    <option value='descending_age'>сначала новые</option>
-                                    <option value='title'>по названию</option>
+                                    <option value='-id'>сначала новые</option>
+                                    <option value='name'>по названию</option>
                                 </select>
                             </div>
                         </div>
@@ -51,8 +53,6 @@
         </div>
     </div>
 </section>
-
-
 <main>
     <div
             class="layout widget-type_system_widget_v4_subcollections_1"
@@ -60,265 +60,20 @@
     >
         <div class="layout__content">
             <div class="subcollection-list grid-list">
-                <a href="/collection/kategoriya-2" class="subcollection-list__item">
+                <!-- Категория -->
+                {% for main_group, groups in groups_catalog.items %}
+                <a href="{% filter_url main_group.name 'group' request.GET.urlencode %}" class="subcollection-list__item">
                     <div class="img-ratio img-fit subcollection-list__item-photo">
                         <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/RLP5cuKG6cI/rs:fit:440:440:1/plain/images/products/1/3146/379440202/large_%D0%90%D0%B2%D0%BE%D0%BA%D0%B0%D0%B4%D0%BE.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/j7tQByx9kx8/rs:fit:440:440:1/plain/images/products/1/3146/379440202/large_%D0%90%D0%B2%D0%BE%D0%BA%D0%B0%D0%B4%D0%BE.jpg"
-                                     class="lazyload" alt="Овощи, фрукты, ягоды">
-                            </picture>
-
-
+                            <img src="{{ main_group.image.url }}" alt="{{ main_group.name }}">
                         </div>
                     </div>
                     <div class="subcollection-list__item-title">
-                        Овощи, фрукты, ягоды
+                        {{ main_group.name }}
                     </div>
                 </a>
 
-                <a href="/collection/katalog-3" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/FK8FS6-kscE/rs:fit:440:440:1/plain/images/products/1/7876/380452548/large_%D0%94%D0%BE%D1%80%D0%B0%D0%B4%D0%BE__600_%D0%B3.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/zlbQ2U8dzxU/rs:fit:440:440:1/plain/images/products/1/7876/380452548/large_%D0%94%D0%BE%D1%80%D0%B0%D0%B4%D0%BE__600_%D0%B3.jpg"
-                                     class="lazyload" alt="Рыба, икра">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Рыба, икра
-                    </div>
-                </a>
-
-                <a href="/collection/popular" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/LGM0OsXQayU/rs:fit:440:440:1/plain/images/products/1/7370/379403466/large_%D0%9A%D1%80%D1%83%D0%B0%D1%81%D1%81%D0%B0%D0%BD_3-min.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/klcauvhPfQQ/rs:fit:440:440:1/plain/images/products/1/7370/379403466/large_%D0%9A%D1%80%D1%83%D0%B0%D1%81%D1%81%D0%B0%D0%BD_3-min.jpg"
-                                     class="lazyload" alt="Популярные товары">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Популярные товары
-                    </div>
-                </a>
-
-                <a href="/collection/frontpage" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/RLP5cuKG6cI/rs:fit:440:440:1/plain/images/products/1/3146/379440202/large_%D0%90%D0%B2%D0%BE%D0%BA%D0%B0%D0%B4%D0%BE.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/j7tQByx9kx8/rs:fit:440:440:1/plain/images/products/1/3146/379440202/large_%D0%90%D0%B2%D0%BE%D0%BA%D0%B0%D0%B4%D0%BE.jpg"
-                                     class="lazyload" alt="Новое поступление">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Новое поступление
-                    </div>
-                </a>
-
-                <a href="/collection/ptitsa-myaso" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/RXRkDHInOW4/rs:fit:440:440:1/plain/images/products/1/3940/380415844/large_%D0%9A%D1%83%D1%80%D0%B8%D0%BD%D0%BD%D1%8B%D0%B5_%D0%B3%D1%80%D1%83%D0%B4%D0%BA%D0%B8__1_%D0%BA%D0%B3.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/JaHHZIgk9HY/rs:fit:440:440:1/plain/images/products/1/3940/380415844/large_%D0%9A%D1%83%D1%80%D0%B8%D0%BD%D0%BD%D1%8B%D0%B5_%D0%B3%D1%80%D1%83%D0%B4%D0%BA%D0%B8__1_%D0%BA%D0%B3.jpg"
-                                     class="lazyload" alt="Птица, мясо">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Птица, мясо
-                    </div>
-                </a>
-
-                <a href="/collection/moloko-syr-yaytsa" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/VOEaQV7ptEM/rs:fit:440:440:1/plain/images/products/1/4993/380457857/large_%D0%9C%D0%BE%D0%BB%D0%BE%D0%BA%D0%BE__1_%D0%BB.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/FuetdYk3dtM/rs:fit:440:440:1/plain/images/products/1/4993/380457857/large_%D0%9C%D0%BE%D0%BB%D0%BE%D0%BA%D0%BE__1_%D0%BB.jpg"
-                                     class="lazyload" alt="Молоко, сыр, яйца">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Молоко, сыр, яйца
-                    </div>
-                </a>
-
-                <a href="/collection/vody-soki-napitki" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/_0W-gSE3L90/rs:fit:440:440:1/plain/images/products/1/2339/380438819/large_%D0%A1%D0%BE%D0%BA_%D0%B0%D0%BF%D0%B5%D0%BB%D1%8C%D1%81%D0%B8%D0%BD__1_%D0%BB.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/AJWqfZ3T88g/rs:fit:440:440:1/plain/images/products/1/2339/380438819/large_%D0%A1%D0%BE%D0%BA_%D0%B0%D0%BF%D0%B5%D0%BB%D1%8C%D1%81%D0%B8%D0%BD__1_%D0%BB.jpg"
-                                     class="lazyload" alt="Вода, соки, напитки">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Вода, соки, напитки
-                    </div>
-                </a>
-
-                <a href="/collection/chay-kofe" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/Y0WaMaKPloY/rs:fit:440:440:1/plain/images/products/1/1707/380429995/large_%D0%97%D0%B5%D0%BB%D0%B5%D0%BD%D1%8B%D0%B9_%D1%87%D0%B0%D0%B9_%D1%81_%D0%B6%D0%B0%D1%81%D0%BC%D0%B8%D0%BD%D0%BE%D0%BC__100_%D0%B3.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/2fxp31RJ7Y0/rs:fit:440:440:1/plain/images/products/1/1707/380429995/large_%D0%97%D0%B5%D0%BB%D0%B5%D0%BD%D1%8B%D0%B9_%D1%87%D0%B0%D0%B9_%D1%81_%D0%B6%D0%B0%D1%81%D0%BC%D0%B8%D0%BD%D0%BE%D0%BC__100_%D0%B3.jpg"
-                                     class="lazyload" alt="Чай, кофе">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Чай, кофе
-                    </div>
-                </a>
-
-                <a href="/collection/katalog-1-2053bd" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/zi198pJbxlk/rs:fit:440:440:1/plain/images/products/1/7824/379428496/large_%D0%A4%D1%83%D0%BD%D0%B4%D1%83%D0%BA_%D0%BE%D1%87%D0%B8%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/NQjzuqmfUFY/rs:fit:440:440:1/plain/images/products/1/7824/379428496/large_%D0%A4%D1%83%D0%BD%D0%B4%D1%83%D0%BA_%D0%BE%D1%87%D0%B8%D1%89%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9.jpg"
-                                     class="lazyload" alt="Орехи">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Орехи
-                    </div>
-                </a>
-
-                <a href="/collection/hleb-bulki" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/l-8wDJaVXOQ/rs:fit:440:440:1/plain/images/products/1/2626/379398722/large_%D0%91%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B8_%D1%81_%D0%BC%D0%B0%D0%BA%D0%BE%D0%BC-min.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/qjyCrK0kZ3k/rs:fit:440:440:1/plain/images/products/1/2626/379398722/large_%D0%91%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B8_%D1%81_%D0%BC%D0%B0%D0%BA%D0%BE%D0%BC-min.jpg"
-                                     class="lazyload" alt="Хлеб, сдоба, выпечка">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Хлеб, сдоба, выпечка
-                    </div>
-                </a>
-
-                <a href="/collection/krupy-spetsii" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/AlynlszJL84/rs:fit:440:440:1/plain/images/products/1/2864/380472112/large_%D0%93%D1%80%D0%B5%D1%87%D0%BA%D0%B0__1_%D0%BA%D0%B3.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/povADxnpLR8/rs:fit:440:440:1/plain/images/products/1/2864/380472112/large_%D0%93%D1%80%D0%B5%D1%87%D0%BA%D0%B0__1_%D0%BA%D0%B3.jpg"
-                                     class="lazyload" alt="Крупы, специи">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Крупы, специи
-                    </div>
-                </a>
-
-                <a href="/collection/katalog-1-c000b6" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/vqYM6F4NFLM/rs:fit:440:440:1/plain/images/products/1/6762/379361898/large_artikyl_0003_4.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/8ss9iMOkkFM/rs:fit:440:440:1/plain/images/products/1/6762/379361898/large_artikyl_0003_4.jpg"
-                                     class="lazyload" alt="Товары для дома">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Товары для дома
-                    </div>
-                </a>
-
-                <a href="/collection/katalog-1-62683d" class="subcollection-list__item">
-                    <div class="img-ratio img-fit subcollection-list__item-photo">
-                        <div class="img-ratio__inner">
-
-
-                            <picture>
-                                <source data-srcset="https://static.insales-cdn.com/r/Zl327lLWj20/rs:fit:440:440:1/plain/images/products/1/235/380477675/large_%D0%9A%D0%B8%D1%81%D1%82%D1%8C_%D0%BF%D1%83%D1%85%D0%BE%D0%B2%D0%BA%D0%B0.jpg@webp"
-                                        type="image/webp" class="lazyload">
-                                <img data-src="https://static.insales-cdn.com/r/ZZtfnksdLOU/rs:fit:440:440:1/plain/images/products/1/235/380477675/large_%D0%9A%D0%B8%D1%81%D1%82%D1%8C_%D0%BF%D1%83%D1%85%D0%BE%D0%B2%D0%BA%D0%B0.jpg"
-                                     class="lazyload" alt="Красота, гигиена">
-                            </picture>
-
-
-                        </div>
-                    </div>
-                    <div class="subcollection-list__item-title">
-                        Красота, гигиена
-                    </div>
-                </a>
+                {% endfor %}
 
             </div>
 
@@ -326,23 +81,28 @@
         </div>
     </div>
 
+    <!-- Конец категории -->
 
-    <div
-            class="layout widget-type_system_widget_v4_catalog_1"
+    <div class="layout widget-type_system_widget_v4_catalog_1"
             style="--catalog-grid-list-min-width:220px; --catalog-grid-list-row-gap:2rem; --catalog-grid-list-column-gap:2rem; --img-ratio:1; --img-fit:contain; --switch-img-on-hover:false; --product-desc-limit:20; --hide-description:true; --product-border-radius:10px; --sticker-font-size:0.9rem; --display-property-color:text; --hide-variants:false; --hide-variants-title:true; --hide-sku:true; --catalog-grid-list-min-width-mobile:150px; --layout-wide-bg:false; --layout-pt:1vw; --layout-pb:1vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
     >
         <div class="layout__content">
 
 
             <div class="catalog">
-                <div class="grid-list catalog-list" data-collection-infinity="/collection/all?page=2">
+                <div class="grid-list catalog-list">
 
-
+                    <!-- Товар -->
+                    {% for product in products %}
                     <form
                             action="/cart_items"
                             method="post"
-                            data-product-id="217322474"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
+                            class=
+                            {% if product.quantity != 0 %}
+                                "product-preview is-zero-count-shown is-forbid-order-over-existing "
+                            {% else %}
+                                "product-preview is-zero-count-shown is-forbid-order-over-existing not-available"
+                            {% endif %}
                     >
                         <div class="product-preview__content">
                             <div class="product-preview__area-photo">
@@ -351,1541 +111,110 @@
                                     <div class="img-ratio img-ratio_cover">
                                         <div class="img-ratio__inner">
 
-                                            <a href="/product/avokado-1-sht">
+                                            <a href="/product/{{ product.id }}">
 
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/AH0be2P5oR8/rs:fit:440:0:1/q:100/plain/images/products/1/3146/379440202/large_%D0%90%D0%B2%D0%BE%D0%BA%D0%B0%D0%B4%D0%BE.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/YoRv099iSf0/rs:fit:300:0:1/q:100/plain/images/products/1/3146/379440202/large_%D0%90%D0%B2%D0%BE%D0%BA%D0%B0%D0%B4%D0%BE.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/Nn7Gl_kJm7s/rs:fit:440:0:1/q:100/plain/images/products/1/3146/379440202/large_%D0%90%D0%B2%D0%BE%D0%BA%D0%B0%D0%B4%D0%BE.jpg"
-                                                         class="lazyload" alt="Авокадо, 1 шт">
-                                                </picture>
-
+                                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
 
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
+                                    {% if product.quantity == 0 %}
+                                        <div class="product-preview__available">
+                                            <span>Нет в наличии</span>
                                         </div>
+                                    {% endif %}
+                                    <div class="stickers">
+                                        {% if product.use_price_type.id == 2 %}
+                                        <div class="sticker sticker-sale">
+                                            Акция
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
 
                             <div class="product-preview__area-title">
                                 <div class="product-preview__title">
-                                    <a href="/product/avokado-1-sht">Авокадо, 1 шт</a>
+                                    <a href="/product/{{ product.id }}">{{ product.name }}, {{product.base_unit }}</a>
+                                    <p>{% get_verbose_field_name product "vendor_code" %}: {{ product.vendor_code }}</p>
                                 </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
                             </div>
 
                             <div class="product-preview__area-variants">
 
-                                <input type="hidden" name="variant_id" value="369891549"/>
+                                <input type="checkbox" name="variant_id" value="option 1"> option 1
+                                <input type="checkbox" name="variant_id" value="option 2"> option 2
 
                             </div>
 
                             <div class="product-preview__area-bottom">
                                 <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
+                                    {% for price in product.prices_set.all %}
+                                        {% if product.use_price_type.id == 2 %}
+                                            {% if price.price_type.id == 1 and price.price != 0 %}
+                                                <span class="product-preview__price-old" data-product-card-old-price>
+                                                    {{ price.price }} {{ price.currency.simbol }}
+                                                </span>
+                                            {% else %}
+                                                <span class="product-preview__price-cur">
+                                                    {{ price.price }} {{ price.currency.simbol }}
+                                                </span>
+                                            {% endif %}
+                                        {% else %}
+
+                                            <span class="product-preview__price-cur">
+                                                    {{ price.price }} {{ price.currency.simbol }}</span>
+                                            <span class="product-preview__price-old" style="visibility: hidden">
+                                                            0
+                                                </span>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
 
-                                <div class="product-preview__price-cur product-preview__price-range">
+                                    <div class="product-preview__controls">
+                                        {% if product.quantity != 0 %}
+                                            <div class="add-cart-counter">
+                                                <button type="button" class="button add-cart-counter__btn">
+                                                    <span class="add-cart-counter__btn-label">В корзину</span>
+                                                    <span class="button__icon icon-cart"></span>
+                                                </button>
 
-                                    59 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        кг
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
+    <!--                                   TODO сделать добавление количества (нужно добавить корзину) -->
+    <!--                                                            <div class="add-cart-counter__controls">-->
+    <!--                                                                <button-->
+    <!--                                                                        class="button add-cart-counter__controls-btn"-->
+    <!--                                                                        type="button">- -->
+    <!--                                                                </button>-->
+    <!--                                                                <a href="/cart_items"-->
+    <!--                                                                   class="button add-cart-counter__detail">-->
+    <!--                                  <span class="add-cart-counter__detail-text">-->
+    <!--                                    <span class="add-cart-counter__detail-label">В корзине</span>-->
+    <!--                                    <span class="add-cart-counter__detail-count"></span>-->
+    <!--                                    кг-->
+    <!--                                  </span>-->
+    <!--                                                                    <span class="add-cart-counter__detail-dop-text">Перейти</span>-->
+    <!--                                                                </a>-->
+    <!--                                                                <button-->
+    <!--                                                                        class="button add-cart-counter__controls-btn"-->
+    <!--                                                                        type="button">+-->
+    <!--                                                                </button>-->
+    <!--                                                            </div>-->
                                     </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
+                                {% else %}
+                                    <button type="button" class="button add-cart-counter__btn">
+                                        <span class="add-cart-counter__btn-label">Подробнее</span>
+                                        <span class="button__icon icon-cart"></span>
                                     </button>
-
-                                    <a href="/product/avokado-1-sht"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/avokado-1-sht"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
+                                {% endif %}
                                 </div>
                             </div>
                         </div>
+
                     </form>
+                    {% endfor %}
 
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217322554"
-                            class="product-preview  is-zero-count-shown    is-more-variants  is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/ananas-1-sht">
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/jrwL0xc-eNw/rs:fit:440:0:1/q:100/plain/images/products/1/3554/379440610/large_%D0%90%D0%BD%D0%B0%D0%BD%D0%B0%D1%81.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/H1K4vzyFXhg/rs:fit:300:0:1/q:100/plain/images/products/1/3554/379440610/large_%D0%90%D0%BD%D0%B0%D0%BD%D0%B0%D1%81.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/a6bG03dSRN8/rs:fit:440:0:1/q:100/plain/images/products/1/3554/379440610/large_%D0%90%D0%BD%D0%B0%D0%BD%D0%B0%D1%81.jpg"
-                                                         class="lazyload" alt="Ананас, 1 шт">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/ananas-1-sht">Ананас, 1 шт</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-
-                                <div class="product-preview__variants">
-                                    <select class="hide" name="variant_id"
-                                            data-product-variants='{ "default": "option-radio" , "Цвет": "option-span"   }'>
-
-                                        <option value="369891649">3</option>
-
-                                        <option value="400678945">2 кг</option>
-
-                                    </select>
-                                </div>
-
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    146 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        кг
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/ananas-1-sht"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/ananas-1-sht"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217268411"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/hleb-karmashek-lalos-450-g">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/BhXtHOqujaM/rs:fit:440:0:1/q:100/plain/images/products/1/3216/379399312/large_%D0%91%D0%B0%D0%B3%D0%B5%D1%82_%D1%81_%D1%81%D0%B5%D0%BC%D0%B5%D0%BD%D0%B0%D0%BC%D0%B8-min.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/LggrUANlIXk/rs:fit:300:0:1/q:100/plain/images/products/1/3216/379399312/large_%D0%91%D0%B0%D0%B3%D0%B5%D1%82_%D1%81_%D1%81%D0%B5%D0%BC%D0%B5%D0%BD%D0%B0%D0%BC%D0%B8-min.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/WH_dOjLaV84/rs:fit:440:0:1/q:100/plain/images/products/1/3216/379399312/large_%D0%91%D0%B0%D0%B3%D0%B5%D1%82_%D1%81_%D1%81%D0%B5%D0%BC%D0%B5%D0%BD%D0%B0%D0%BC%D0%B8-min.jpg"
-                                                         class="lazyload" alt="Багет с кунжутом (Лалос), 350 г">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/hleb-karmashek-lalos-450-g">Багет с кунжутом (Лалос), 350 г</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369817284"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    109 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/hleb-karmashek-lalos-450-g"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/hleb-karmashek-lalos-450-g"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217339266"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/bazilik-200-g">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/O9VwwskpojY/rs:fit:440:0:1/q:100/plain/images/products/1/5556/379467188/large_%D0%91%D0%B0%D0%B7%D0%B8%D0%BB%D0%B8%D0%BA__200_%D0%B3.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/hVoyl4D3IYU/rs:fit:300:0:1/q:100/plain/images/products/1/5556/379467188/large_%D0%91%D0%B0%D0%B7%D0%B8%D0%BB%D0%B8%D0%BA__200_%D0%B3.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/zaQoREIq670/rs:fit:440:0:1/q:100/plain/images/products/1/5556/379467188/large_%D0%91%D0%B0%D0%B7%D0%B8%D0%BB%D0%B8%D0%BA__200_%D0%B3.jpg"
-                                                         class="lazyload" alt="Базилик, 200 г">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/bazilik-200-g">Базилик, 200 г</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369912926"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    180 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/bazilik-200-g"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/bazilik-200-g"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217330630"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/baklazhan-1-kg">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/f5AWRTtLEuw/rs:fit:440:0:1/q:100/plain/images/products/1/3971/379449219/large_%D0%91%D0%B0%D0%BA%D0%BB%D0%B0%D0%B6%D0%B0%D0%BD.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/ijL9nTNGCHA/rs:fit:300:0:1/q:100/plain/images/products/1/3971/379449219/large_%D0%91%D0%B0%D0%BA%D0%BB%D0%B0%D0%B6%D0%B0%D0%BD.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/GJRfRitynOk/rs:fit:440:0:1/q:100/plain/images/products/1/3971/379449219/large_%D0%91%D0%B0%D0%BA%D0%BB%D0%B0%D0%B6%D0%B0%D0%BD.jpg"
-                                                         class="lazyload" alt="Баклажан, 1 кг">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/baklazhan-1-kg">Баклажан, 1 кг</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369901670"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    82 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/baklazhan-1-kg"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/baklazhan-1-kg"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217269007"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/hleb-dlya-sendvicha-s-sushennymi-tomatami-100-g">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/5sitopyWfIE/rs:fit:440:0:1/q:100/plain/images/products/1/4447/379400543/large_%D0%91%D0%B0%D1%82%D0%BE%D0%BD-min.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/e3WPx_0uzIs/rs:fit:300:0:1/q:100/plain/images/products/1/4447/379400543/large_%D0%91%D0%B0%D1%82%D0%BE%D0%BD-min.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/XJA2SqXPnBA/rs:fit:440:0:1/q:100/plain/images/products/1/4447/379400543/large_%D0%91%D0%B0%D1%82%D0%BE%D0%BD-min.jpg"
-                                                         class="lazyload" alt="Батон, 330 г">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/hleb-dlya-sendvicha-s-sushennymi-tomatami-100-g">Батон, 330 г</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369818013"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    55 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/hleb-dlya-sendvicha-s-sushennymi-tomatami-100-g"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/hleb-dlya-sendvicha-s-sushennymi-tomatami-100-g"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217264191"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/brauni-sladkiy-region-s-lesnym-orehom-120-g">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/p1JpRRiI2_o/rs:fit:440:0:1/q:100/plain/images/products/1/5385/379401481/large_%D0%91%D0%B0%D1%82%D0%BE%D0%BD_%D1%81_%D0%BC%D0%B0%D0%BA%D0%BE%D0%BC-min.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/SObNImDW4JI/rs:fit:300:0:1/q:100/plain/images/products/1/5385/379401481/large_%D0%91%D0%B0%D1%82%D0%BE%D0%BD_%D1%81_%D0%BC%D0%B0%D0%BA%D0%BE%D0%BC-min.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/Pa90VYodPDY/rs:fit:440:0:1/q:100/plain/images/products/1/5385/379401481/large_%D0%91%D0%B0%D1%82%D0%BE%D0%BD_%D1%81_%D0%BC%D0%B0%D0%BA%D0%BE%D0%BC-min.jpg"
-                                                         class="lazyload" alt="Батон косичка с маком, 380 г">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/brauni-sladkiy-region-s-lesnym-orehom-120-g">Батон косичка с
-                                        маком, 380 г</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369811184"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    79 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/brauni-sladkiy-region-s-lesnym-orehom-120-g"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/brauni-sladkiy-region-s-lesnym-orehom-120-g"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217263722"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/rulet-sladkiy-region-shokoladnyy-300-g">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/-WS4KcUslNo/rs:fit:440:0:1/q:100/plain/images/products/1/2626/379398722/large_%D0%91%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B8_%D1%81_%D0%BC%D0%B0%D0%BA%D0%BE%D0%BC-min.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/ZyHiu7FC3EA/rs:fit:300:0:1/q:100/plain/images/products/1/2626/379398722/large_%D0%91%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B8_%D1%81_%D0%BC%D0%B0%D0%BA%D0%BE%D0%BC-min.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/S5JVH3eNiv0/rs:fit:440:0:1/q:100/plain/images/products/1/2626/379398722/large_%D0%91%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B8_%D1%81_%D0%BC%D0%B0%D0%BA%D0%BE%D0%BC-min.jpg"
-                                                         class="lazyload" alt="Бублики с маком, 300 г">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/rulet-sladkiy-region-shokoladnyy-300-g">Бублики с маком, 300 г</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369810331"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    151 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/rulet-sladkiy-region-shokoladnyy-300-g"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/rulet-sladkiy-region-shokoladnyy-300-g"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217265899"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/biskvit-s-shokoladnoy-nachinkoy-sladkiy-region-330-g">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/MKy8TPdEfxA/rs:fit:440:0:1/q:100/plain/images/products/1/2870/379407158/large_%D0%91%D1%83%D0%BB%D0%BA%D0%B0_%D1%81_%D0%BF%D0%BE%D0%B2%D0%B8%D0%B4%D0%BB%D0%BE%D0%BC.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/4i80EX1t1J8/rs:fit:300:0:1/q:100/plain/images/products/1/2870/379407158/large_%D0%91%D1%83%D0%BB%D0%BA%D0%B0_%D1%81_%D0%BF%D0%BE%D0%B2%D0%B8%D0%B4%D0%BB%D0%BE%D0%BC.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/YDt2dyqYq3I/rs:fit:440:0:1/q:100/plain/images/products/1/2870/379407158/large_%D0%91%D1%83%D0%BB%D0%BA%D0%B0_%D1%81_%D0%BF%D0%BE%D0%B2%D0%B8%D0%B4%D0%BB%D0%BE%D0%BC.jpg"
-                                                         class="lazyload" alt="Булка с вишней, 420 г.">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/biskvit-s-shokoladnoy-nachinkoy-sladkiy-region-330-g">Булка с
-                                        вишней, 420 г.</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369813500"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    79 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/biskvit-s-shokoladnoy-nachinkoy-sladkiy-region-330-g"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/biskvit-s-shokoladnoy-nachinkoy-sladkiy-region-330-g"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217273257"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/file-bedra-indeyki-zamorozka-turtsiya-1-kg">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/lBW38NsY8AI/rs:fit:440:0:1/q:100/plain/images/products/1/4589/380416493/large_%D0%92%D0%B0%D1%80%D1%88_%D0%B3%D0%BE%D0%B2%D1%8F%D0%B4%D0%B8%D0%BD%D0%B0.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/oNfPrB2xzKo/rs:fit:300:0:1/q:100/plain/images/products/1/4589/380416493/large_%D0%92%D0%B0%D1%80%D1%88_%D0%B3%D0%BE%D0%B2%D1%8F%D0%B4%D0%B8%D0%BD%D0%B0.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/P7rFvhs2sbA/rs:fit:440:0:1/q:100/plain/images/products/1/4589/380416493/large_%D0%92%D0%B0%D1%80%D1%88_%D0%B3%D0%BE%D0%B2%D1%8F%D0%B4%D0%B8%D0%BD%D0%B0.jpg"
-                                                         class="lazyload" alt="Варш индейки, 500 г">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/file-bedra-indeyki-zamorozka-turtsiya-1-kg">Варш индейки, 500
-                                        г</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369824203"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    140 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/file-bedra-indeyki-zamorozka-turtsiya-1-kg"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/file-bedra-indeyki-zamorozka-turtsiya-1-kg"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217181186"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/vedro-13l-s-otzhimom-pryamougolnoe-antratsit-sven">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/E4LFXVZz6uk/rs:fit:440:0:1/q:100/plain/images/products/1/4779/379146923/large_3_0b7b872a7c277b.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/8BsAyJJMwfk/rs:fit:300:0:1/q:100/plain/images/products/1/4779/379146923/large_3_0b7b872a7c277b.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/5Kx4cS788ko/rs:fit:440:0:1/q:100/plain/images/products/1/4779/379146923/large_3_0b7b872a7c277b.jpg"
-                                                         class="lazyload"
-                                                         alt="Ведро 13л. с отжимом прямоугольное, антрацит Sven">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/vedro-13l-s-otzhimom-pryamougolnoe-antratsit-sven">Ведро 13л. с
-                                        отжимом прямоугольное, антрацит Sven</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369696103"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    0 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/vedro-13l-s-otzhimom-pryamougolnoe-antratsit-sven"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/vedro-13l-s-otzhimom-pryamougolnoe-antratsit-sven"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-                    <form
-                            action="/cart_items"
-                            method="post"
-                            data-product-id="217276567"
-                            class="product-preview  is-zero-count-shown      is-forbid-order-over-existing "
-                    >
-                        <div class="product-preview__content">
-                            <div class="product-preview__area-photo">
-                                <div class="product-preview__photo">
-
-                                    <div class="img-ratio img-ratio_cover">
-                                        <div class="img-ratio__inner">
-
-                                            <a href="/product/vyrezka-govyadiny-1-kg">
-
-
-                                                <picture>
-                                                    <source media="(min-width:768px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/QxCFU47sNg0/rs:fit:440:0:1/q:100/plain/images/products/1/5419/380417323/large_%D0%93%D0%BE%D0%B2%D1%8F%D0%B6%D1%8C%D1%8F_%D0%B2%D1%8B%D1%80%D0%B5%D0%B7%D0%BA%D0%B0.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-                                                    <source media="(max-width:767px)"
-                                                            data-srcset="https://static.insales-cdn.com/r/NK5Na8IDz1A/rs:fit:300:0:1/q:100/plain/images/products/1/5419/380417323/large_%D0%93%D0%BE%D0%B2%D1%8F%D0%B6%D1%8C%D1%8F_%D0%B2%D1%8B%D1%80%D0%B5%D0%B7%D0%BA%D0%B0.jpg@webp"
-                                                            type="image/webp" class="lazyload">
-
-                                                    <img data-src="https://static.insales-cdn.com/r/keu_Bygt6Wo/rs:fit:440:0:1/q:100/plain/images/products/1/5419/380417323/large_%D0%93%D0%BE%D0%B2%D1%8F%D0%B6%D1%8C%D1%8F_%D0%B2%D1%8B%D1%80%D0%B5%D0%B7%D0%BA%D0%B0.jpg"
-                                                         class="lazyload" alt="Вырезка говядины, 1 кг">
-                                                </picture>
-
-
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-preview__available">
-              <span data-product-card-available='{
-                "availableText": "В наличии",
-                "notAvailableText": "Нет в наличии"
-                }'
-              >
-
-              В наличии
-
-              </span>
-                                    </div>
-                                    <div class="stickers">
-
-                                        <div class="sticker sticker-sale" data-product-card-sale-value
-                                             data-sticker-title="sticker-sale"></div>
-                                        <div class="sticker sticker-preorder" data-sticker-title="sticker-preorder">
-                                            Предзаказ
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-sku">
-                                <div class="product-preview__sku">
-
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-title">
-                                <div class="product-preview__title">
-                                    <a href="/product/vyrezka-govyadiny-1-kg">Вырезка говядины, 1 кг</a>
-                                </div>
-                            </div>
-
-                            <div class="product-preview__area-description">
-
-                            </div>
-
-                            <div class="product-preview__area-variants">
-
-                                <input type="hidden" name="variant_id" value="369827979"/>
-
-                            </div>
-
-                            <div class="product-preview__area-bottom">
-                                <div class="product-preview__price">
-                                    <span class="product-preview__price-old" data-product-card-old-price></span>
-                                    <span class="product-preview__price-cur" data-product-card-price-from-cart></span>
-                                </div>
-
-                                <div class="product-preview__price-cur product-preview__price-range">
-
-                                    325 ₽
-                                </div>
-
-                                <div class="product-preview__controls">
-                                    <div class="add-cart-counter" data-add-cart-counter>
-                                        <button type="button" class="button add-cart-counter__btn"
-                                                data-add-cart-counter-btn>
-                                            <span class="add-cart-counter__btn-label">В корзину</span>
-                                            <span class="button__icon icon-cart"></span>
-                                        </button>
-                                        <div class="add-cart-counter__controls">
-                                            <button data-add-cart-counter-minus
-                                                    class="button add-cart-counter__controls-btn" type="button">-
-                                            </button>
-                                            <a href="/cart_items" class="button add-cart-counter__detail">
-                      <span class="add-cart-counter__detail-text">
-                        <span class="add-cart-counter__detail-label">В корзине</span>
-                        <span data-add-cart-counter-count class="add-cart-counter__detail-count"></span>
-                        шт
-                      </span>
-                                                <span class="add-cart-counter__detail-dop-text">Перейти</span>
-                                            </a>
-                                            <button data-add-cart-counter-plus
-                                                    class="button add-cart-counter__controls-btn" type="button">+
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <button data-product-card-preorder
-                                            class="button button_wide product-preview__preorder-btn" type="button">
-                                        Предзаказ
-                                    </button>
-
-                                    <a href="/product/vyrezka-govyadiny-1-kg"
-                                       class="button button_wide product-preview__detail-btn">Подробнее</a>
-
-                                    <a href="/product/vyrezka-govyadiny-1-kg"
-                                       class="button button_wide product-preview__detail-select-btn">Выбрать</a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    <!-- Конец Товар -->
 
                 </div>
             </div>
@@ -1903,34 +232,41 @@
 
             <div class="pagination">
 
+
+                <a href="/collection/all" class="button button_size-s pagination-prev">Предыдущая</a>
+
                 <div class="pagination-items next">
 
 
-      <span class="button button_size-s pagination-span disabled">
-       1
-      </span>
-
-
-                    <a href="/collection/all?page=2" class="button button_size-s  pagination-link">
-                        2
-                    </a>
-
-
-                    <a href="/collection/all?page=3" class="button button_size-s  pagination-link">
-                        3
+                    <a href="/collection/all" class="button button_size-s  pagination-link">
+                        1
                     </a>
 
 
                     <span class=" pagination-void">
-       &hellip;
-      </span>
+                       &hellip;
+                  </span>
+
+
                     <a href="/collection/all?page=9" class="button button_size-s  pagination-link">
                         9
                     </a>
+
+
                 </div>
-                <a href="/collection/all?page=2" class="button button_size-s pagination-next">Следующая</a>
+
+                <a href="/collection/all?page=3" class="button button_size-s pagination-next">Следующая</a>
             </div>
         </div>
     </div>
+
 </main>
+
+{% include 'include/aside.html' %}
+
+
 {% endblock content %}
+
+{% block script %}
+    <script src="/static/js/script-catalog.js"></script>
+{% endblock script %}

@@ -1,3 +1,4 @@
+{% load filter_url %}
 <header>
     <link media='print' onload='this.media="all"' rel='stylesheet' type='text/css'
           href='/static/css/jquery.modal.css'>
@@ -206,7 +207,7 @@
                                             <li class="header__collections-item is-level-1" data-navigation-item>
 
 
-                                                <a href="/collection/kategoriya-2"
+                                                <a href="/catalog/{% filter_url main_group.name 'group' request.GET.urlencode %}"
                                                    class="img-ratio img-ratio_cover header__collections-photo">
                                                     <div class="img-ratio__inner">
 
@@ -217,7 +218,7 @@
 
 
                                                 <div class="header__collections-controls">
-                                                    <a href="/catalog/?filter={{ main_group }}"
+                                                    <a href="/catalog/{% filter_url main_group.name 'group' request.GET.urlencode %}"
                                                        class="header__collections-link">
                                                         {{ main_group }}
                                                     </a>
@@ -235,7 +236,7 @@
                                                         {% for group in groups %}
                                                         <li class="header__collections-item ">
                                                             <div class="header__collections-controls">
-                                                                <a href="/catalog/?filter={{ group }}"
+                                                                <a href="/catalog/{% filter_url group.name 'group' request.GET.urlencode %}"
                                                                    class="header__collections-link">
                                                                     {{ group }}
                                                                 </a>
