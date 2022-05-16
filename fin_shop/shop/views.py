@@ -87,10 +87,23 @@ class Catalog(ProductsData, View):
                     for group in groups:
                         groups_list.append(group.name)
                 else:
-                    groups_list.append(groups.name)
+                    groups_list.append(self.request.GET.get('group'))
                 products = products.filter(group__name__in=groups_list)
             elif key == 'order':
                 products = products.order_by(self.request.GET.get('order'))
+            elif key == 'price_min' or 'price_max':
+                filter_price = int(self.request.GET.get(key))
+                for product in products:
+                    price_set = product.prices_set.filter(price_type=product.use_price_type)
+                    try:
+                        price = price_set[0].price
+                        if key == 'price_min' and price < filter_price:
+                            products = products.exclude(id=product.id)
+                        if key == 'price_max' and price > filter_price:
+                            products = products.exclude(id=product.id)
+                    except IndexError:
+                        products = products.exclude(id=product.id)
+
             else:
                 pass
 

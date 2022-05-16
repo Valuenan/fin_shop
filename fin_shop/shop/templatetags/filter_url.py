@@ -5,7 +5,7 @@ register = template.Library()
 
 @register.simple_tag
 def filter_url(value, field_name, urlencode=None):
-    ''' Решает проблемму с добавлением фильтров на фильтры '''
+    ''' Решает проблемму с добавлением фильтров на фильтры для ссылок '''
 
     url = f'?{field_name}={value}'
 
@@ -15,3 +15,14 @@ def filter_url(value, field_name, urlencode=None):
         encode_querystring = '&'.join(filtered_querystring)
         url = f'{url}&{encode_querystring}'
     return url
+
+@register.simple_tag
+def filter_value(field_name, urlencode=None):
+    ''' Возвращает значение в поле фильтра '''
+
+    if urlencode:
+        querystring = urlencode.split('&')
+        for filter_ in querystring:
+            if field_name in filter_:
+                value = filter_.split('=')[1]
+                return str(value)

@@ -34,7 +34,7 @@
                                                 class="form-control form-control_size-s filter-range__field filter-range__field-min"
                                                 type="text"
                                                 name="price_min"
-                                                value=""
+                                                value="{% filter_value 'price_min' request.GET.urlencode %}"
                                                 disabled
                                         />
                                     </div>
@@ -44,7 +44,7 @@
                                                 class="form-control form-control_size-s filter-range__field filter-range__field-max"
                                                 type="text"
                                                 name="price_max"
-                                                value=""
+                                                value="{% filter_value 'price_max' request.GET.urlencode %}"
                                                 disabled
                                         />
                                     </div>
