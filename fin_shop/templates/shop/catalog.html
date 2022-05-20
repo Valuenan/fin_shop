@@ -38,9 +38,9 @@
                         <div class="collection-order is-sort">
                             <div class="select-wrapper">
                                 <select class="js-filter-trigger form-control form-control_size-m" name="order">
-                                    <option value=''>Сортировка</option>
-                                    <option value='-id'>сначала новые</option>
-                                    <option value='name'>по названию</option>
+                                    <option value="">Сортировка</option>
+                                    <option value="-id">сначала новые</option>
+                                    <option value="name">по названию</option>
                                 </select>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                 <div class="grid-list catalog-list">
 
                     <!-- Товар -->
-                    {% for product in products %}
+                    {% for product in page_obj %}
                     <form
                             action="/cart_items"
                             method="post"
@@ -123,9 +123,9 @@
                                     {% endif %}
                                     <div class="stickers">
                                         {% if product.use_price_type.id == 2 %}
-                                        <div class="sticker sticker-sale">
-                                            Акция
-                                        </div>
+                                            <div class="sticker sticker-sale">
+                                                Акция
+                                            </div>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -139,30 +139,30 @@
                                 </div>
                             </div>
 
-                            <div class="product-preview__area-variants">
+<!--                            <div class="product-preview__area-variants">-->
 
-                                <input type="checkbox" name="variant_id" value="option 1"> option 1
-                                <input type="checkbox" name="variant_id" value="option 2"> option 2
+<!--                                <input type="checkbox" name="variant_id" value="option 1"> option 1-->
+<!--                                <input type="checkbox" name="variant_id" value="option 2"> option 2-->
 
-                            </div>
+<!--                            </div>-->
 
                             <div class="product-preview__area-bottom">
                                 <div class="product-preview__price">
-                                    {% for price in product.prices_set.all %}
-                                        {% if product.use_price_type.id == 2 %}
-                                            {% if price.price_type.id == 1 and price.price != 0 %}
+                                    {% for price_data in product.prices_set.all %}
+                                        {% if product.use_price_type.name == 'promo' %}
+                                            {% if price_data.price_type.name == 'regular' and price_data.price != 0 %}
                                                 <span class="product-preview__price-old" data-product-card-old-price>
-                                                    {{ price.price }} {{ price.currency.simbol }}
+                                                    {{ price_data.price }} {{ price_data.currency.simbol }}
                                                 </span>
                                             {% else %}
                                                 <span class="product-preview__price-cur">
-                                                    {{ price.price }} {{ price.currency.simbol }}
+                                                    {{ price_data.price }} {{ price_data.currency.simbol }}
                                                 </span>
                                             {% endif %}
                                         {% else %}
 
                                             <span class="product-preview__price-cur">
-                                                    {{ price.price }} {{ price.currency.simbol }}</span>
+                                                    {{ price_data.price }} {{ price_data.currency.simbol }}</span>
                                             <span class="product-preview__price-old" style="visibility: hidden">
                                                             0
                                                 </span>
@@ -179,25 +179,24 @@
                                                 </button>
 
     <!--                                   TODO сделать добавление количества (нужно добавить корзину) -->
-    <!--                                                            <div class="add-cart-counter__controls">-->
-    <!--                                                                <button-->
-    <!--                                                                        class="button add-cart-counter__controls-btn"-->
-    <!--                                                                        type="button">- -->
-    <!--                                                                </button>-->
-    <!--                                                                <a href="/cart_items"-->
-    <!--                                                                   class="button add-cart-counter__detail">-->
-    <!--                                  <span class="add-cart-counter__detail-text">-->
-    <!--                                    <span class="add-cart-counter__detail-label">В корзине</span>-->
-    <!--                                    <span class="add-cart-counter__detail-count"></span>-->
-    <!--                                    кг-->
-    <!--                                  </span>-->
-    <!--                                                                    <span class="add-cart-counter__detail-dop-text">Перейти</span>-->
-    <!--                                                                </a>-->
-    <!--                                                                <button-->
-    <!--                                                                        class="button add-cart-counter__controls-btn"-->
-    <!--                                                                        type="button">+-->
-    <!--                                                                </button>-->
-    <!--                                                            </div>-->
+        <!--                                <div class="add-cart-counter__controls">-->
+        <!--                                    <button-->
+        <!--                                    class="button add-cart-counter__controls-btn"-->
+        <!--                                    type="button">- -->
+        <!--                                    </button>-->
+        <!--                                    <a href="/cart_items" class="button add-cart-counter__detail">-->
+        <!--                                  <span class="add-cart-counter__detail-text">-->
+        <!--                                    <span class="add-cart-counter__detail-label">В корзине</span>-->
+        <!--                                    <span class="add-cart-counter__detail-count"></span>-->
+        <!--                                    кг-->
+        <!--                                  </span>-->
+        <!--                                        <span class="add-cart-counter__detail-dop-text">Перейти</span>-->
+        <!--                                    </a>-->
+        <!--                                    <button-->
+        <!--                                            class="button add-cart-counter__controls-btn"-->
+        <!--                                            type="button">+-->
+        <!--                                    </button>-->
+        <!--                                </div>-->
                                     </div>
                                 {% else %}
                                     <button type="button" class="button add-cart-counter__btn">
@@ -222,41 +221,7 @@
     </div>
 
 
-    <div
-            class="layout widget-type_system_widget_v4_pagination_1"
-            style="--align:center; --layout-wide-bg:false; --layout-pt:1vw; --layout-pb:1vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
-    >
-        <div class="layout__content">
-
-            <div class="pagination">
-
-
-                <a href="/collection/all" class="button button_size-s pagination-prev">Предыдущая</a>
-
-                <div class="pagination-items next">
-
-
-                    <a href="/collection/all" class="button button_size-s  pagination-link">
-                        1
-                    </a>
-
-
-                    <span class=" pagination-void">
-                       &hellip;
-                  </span>
-
-
-                    <a href="/collection/all?page=9" class="button button_size-s  pagination-link">
-                        9
-                    </a>
-
-
-                </div>
-
-                <a href="/collection/all?page=3" class="button button_size-s pagination-next">Следующая</a>
-            </div>
-        </div>
-    </div>
+    {% include 'include/pagination.html' %}
 
 </main>
 

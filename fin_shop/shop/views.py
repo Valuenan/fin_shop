@@ -1,5 +1,3 @@
-from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 
 from .models import Products, Groups
@@ -70,14 +68,21 @@ class ProductDetails(generic.DetailView):
         return context
 
 
-class Catalog(ProductsData, View):
+class Catalog(ProductsData, generic.ListView):
     '''Каталог товаров'''
+    model = Products
+    template_name = 'shop/catalog.html'
+    paginate_by = 1
 
-    def get(self, request):
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
         main_groups = Groups.objects.filter(parent=None)
-        groups_catalog = groups_dict(main_groups)
+        context['groups_catalog'] = groups_dict(main_groups)
+        return context
 
-        products = Products.objects.filter(flag_removal=False)
+    def get_queryset(self):
+        '''Блок фильтрации'''
+        products = self.model.objects.filter(flag_removal=False).order_by('id')
 
         for key in self.request.GET:
             if key == 'group':
@@ -91,7 +96,7 @@ class Catalog(ProductsData, View):
                 products = products.filter(group__name__in=groups_list)
             elif key == 'order':
                 products = products.order_by(self.request.GET.get('order'))
-            elif key == 'price_min' or 'price_max':
+            elif key == 'price_min' or key == 'price_max':
                 filter_price = int(self.request.GET.get(key))
                 for product in products:
                     price_set = product.prices_set.filter(price_type=product.use_price_type)
@@ -103,8 +108,4 @@ class Catalog(ProductsData, View):
                             products = products.exclude(id=product.id)
                     except IndexError:
                         products = products.exclude(id=product.id)
-
-            else:
-                pass
-
-        return render(request, 'shop/catalog.html', context={'groups_catalog': groups_catalog, 'products': products})
+        return products

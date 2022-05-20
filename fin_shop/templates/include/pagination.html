@@ -1,0 +1,43 @@
+{% load filter_url %}
+<div
+            class="layout widget-type_system_widget_v4_pagination_1"
+            style="--align:center; --layout-wide-bg:false; --layout-pt:1vw; --layout-pb:1vw; --layout-content-max-width:1408px; --layout-wide-content:false; --layout-edge:false; --hide-desktop:false; --hide-mobile:false;"
+    >
+    <div class="layout__content">
+
+        <div class="pagination">
+
+            {% if page_obj.has_previous %}
+                <a href="{% filter_url page_obj.previous_page_number 'page' request.GET.urlencode %}" class="button button_size-s pagination-prev">Предыдущая</a>
+            {% endif %}
+                <div class="pagination-items next">
+
+            {% if page_obj.has_previous %}
+                <a href="{% filter_url '1' 'page' request.GET.urlencode %}" class="button button_size-s  pagination-link">
+                    1
+                </a>
+
+                <span class=" pagination-void">
+                   &hellip;
+                </span>
+            {% endif %}
+
+            {% if page_obj.has_previous or page_obj.has_next %}
+                <span class="button_size-s  pagination-link">
+                    {{ page_obj.number }}
+                </span>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <span class=" pagination-void">
+                   &hellip;
+                </span>
+                <a href="{% filter_url page_obj.paginator.num_pages 'page' request.GET.urlencode %}" class="button button_size-s  pagination-link">
+                    {{ page_obj.paginator.num_pages }}
+                </a>
+                </div>
+                <a href="{% filter_url page_obj.next_page_number 'page' request.GET.urlencode %}" class="button button_size-s pagination-next">Следующая</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
